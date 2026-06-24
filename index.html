@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>お金の用語ハンドブック｜むずかしい言葉をプチッと解説</title>
+<meta name="description" content="投資・お金・経済・税金のむずかしい用語を、初心者向けにプチッと短く解説。タップするだけ。">
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --ink:#28304a;
+    --ink-soft:#5b6480;
+    --line:#e9ebf3;
+    --shadow:0 6px 20px rgba(40,48,74,.08);
+    --shadow-lg:0 18px 48px rgba(40,48,74,.20);
+    --radius:18px;
+
+    /* カテゴリ別カラー */
+    --c-invest:#7b66ff;   --c-invest-bg:#efecff;
+    --c-life:#1fbf8f;     --c-life-bg:#e4f7f0;
+    --c-econ:#3b8df0;     --c-econ-bg:#e6f0fe;
+    --c-tax:#f7913a;      --c-tax-bg:#fdeedd;
+    --c-chart:#ec4899;    --c-chart-bg:#fce7f2;
+    --c-corp:#0ea5a4;     --c-corp-bg:#d8f3f1;
+    --fav:#ffb02e;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Segoe UI",Meiryo,sans-serif;
+    background:
+      radial-gradient(1200px 500px at 100% -10%, #eef0ff 0%, transparent 55%),
+      radial-gradient(900px 400px at -10% 0%, #e6fbf3 0%, transparent 50%),
+      var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 60px;
+  }
+
+  /* ---------- ヘッダー ---------- */
+  header{
+    padding:28px 20px 18px;
+    max-width:760px;margin:0 auto;
+    text-align:center;
+  }
+  .logo{
+    display:inline-flex;align-items:center;gap:10px;
+    font-weight:800;font-size:13px;letter-spacing:.08em;color:var(--ink-soft);
+    background:#fff;border:1px solid var(--line);
+    padding:7px 14px;border-radius:999px;box-shadow:var(--shadow);
+  }
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--c-invest),var(--c-life))}
+  h1{
+    font-size:clamp(24px,6vw,34px);line-height:1.3;margin:16px 0 6px;font-weight:800;
+    letter-spacing:.01em;
+  }
+  h1 .accent{
+    background:linear-gradient(120deg,var(--c-invest),var(--c-econ));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .lead{color:var(--ink-soft);font-size:14.5px;margin:0 auto;max-width:440px}
+
+  /* ---------- 検索 ---------- */
+  .toolbar{max-width:760px;margin:22px auto 0;padding:0 16px}
+  .search{
+    position:relative;display:flex;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:999px;
+    box-shadow:var(--shadow);padding:4px 6px 4px 16px;
+  }
+  .search svg{flex:0 0 auto;color:var(--ink-soft)}
+  .search input{
+    flex:1;border:0;outline:0;background:transparent;
+    font-size:16px;padding:13px 10px;color:var(--ink);
+  }
+  .search input::placeholder{color:#aab0c4}
+  .search .clear{
+    border:0;background:#f0f1f7;color:var(--ink-soft);
+    width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;
+    display:none;align-items:center;justify-content:center;flex:0 0 auto;
+  }
+  .search .clear.show{display:flex}
+
+  /* ---------- カテゴリチップ ---------- */
+  .chips{
+    display:flex;gap:9px;overflow-x:auto;padding:16px 16px 4px;
+    max-width:760px;margin:0 auto;scrollbar-width:none;
+  }
+  .chips::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--ink-soft);
+    padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;
+    transition:.18s;display:inline-flex;align-items:center;gap:7px;
+  }
+  .chip .ic{width:9px;height:9px;border-radius:3px;background:#c9cee0}
+  .chip[data-cat="invest"] .ic{background:var(--c-invest)}
+  .chip[data-cat="life"] .ic{background:var(--c-life)}
+  .chip[data-cat="econ"] .ic{background:var(--c-econ)}
+  .chip[data-cat="tax"] .ic{background:var(--c-tax)}
+  .chip[data-cat="chart"] .ic{background:var(--c-chart)}
+  .chip[data-cat="corp"] .ic{background:var(--c-corp)}
+  .chip[data-cat="fav"] .ic{background:var(--fav);border-radius:50%}
+  .chip.active{color:#fff;border-color:transparent;box-shadow:var(--shadow)}
+  .chip.active .ic{background:rgba(255,255,255,.9)!important}
+  .chip[data-cat="all"].active{background:var(--ink)}
+  .chip[data-cat="invest"].active{background:var(--c-invest)}
+  .chip[data-cat="life"].active{background:var(--c-life)}
+  .chip[data-cat="econ"].active{background:var(--c-econ)}
+  .chip[data-cat="tax"].active{background:var(--c-tax)}
+  .chip[data-cat="chart"].active{background:var(--c-chart)}
+  .chip[data-cat="corp"].active{background:var(--c-corp)}
+  .chip[data-cat="fav"].active{background:var(--fav)}
+
+  /* ---------- ランダム ---------- */
+  .actions{max-width:760px;margin:14px auto 0;padding:0 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .count{font-size:12.5px;color:var(--ink-soft)}
+  .count b{color:var(--ink)}
+  .random{
+    border:0;cursor:pointer;font-weight:700;font-size:13px;color:var(--ink);
+    background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);
+    padding:9px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;transition:.15s;
+  }
+  .random:active{transform:scale(.96)}
+
+  /* ---------- カードグリッド ---------- */
+  .grid{
+    max-width:760px;margin:16px auto 0;padding:0 16px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+  }
+  @media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:15px 14px 14px;cursor:pointer;
+    box-shadow:var(--shadow);transition:transform .15s, box-shadow .15s;
+    overflow:hidden;text-align:left;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#ddd}
+  .card[data-cat="invest"]::before{background:var(--c-invest)}
+  .card[data-cat="life"]::before{background:var(--c-life)}
+  .card[data-cat="econ"]::before{background:var(--c-econ)}
+  .card[data-cat="tax"]::before{background:var(--c-tax)}
+  .card[data-cat="chart"]::before{background:var(--c-chart)}
+  .card[data-cat="corp"]::before{background:var(--c-corp)}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .card:active{transform:scale(.98)}
+  .card .tag{
+    display:inline-block;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;margin-bottom:9px;
+  }
+  .card[data-cat="invest"] .tag{color:var(--c-invest);background:var(--c-invest-bg)}
+  .card[data-cat="life"] .tag{color:var(--c-life);background:var(--c-life-bg)}
+  .card[data-cat="econ"] .tag{color:var(--c-econ);background:var(--c-econ-bg)}
+  .card[data-cat="tax"] .tag{color:var(--c-tax);background:var(--c-tax-bg)}
+  .card[data-cat="chart"] .tag{color:var(--c-chart);background:var(--c-chart-bg)}
+  .card[data-cat="corp"] .tag{color:var(--c-corp);background:var(--c-corp-bg)}
+  .card .term{font-weight:800;font-size:16px;line-height:1.35;margin:0;letter-spacing:.01em}
+  .card .reading{font-size:11px;color:var(--ink-soft);margin-top:2px}
+  .card .peek{font-size:12px;color:var(--ink-soft);margin-top:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card .star{
+    position:absolute;top:9px;right:9px;border:0;background:transparent;cursor:pointer;
+    font-size:18px;line-height:1;color:#d7dae6;padding:4px;border-radius:50%;transition:.15s;
+  }
+  .card .star.on{color:var(--fav);transform:scale(1.12)}
+
+  .empty{max-width:760px;margin:40px auto;text-align:center;color:var(--ink-soft);padding:0 20px}
+  .empty .big{font-size:40px}
+
+  /* ---------- モーダル ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(28,33,53,.45);backdrop-filter:blur(4px);
+    display:flex;align-items:flex-end;justify-content:center;z-index:50;
+    opacity:0;pointer-events:none;transition:opacity .2s;padding:0;
+  }
+  @media(min-width:560px){.overlay{align-items:center;padding:20px}}
+  .overlay.open{opacity:1;pointer-events:auto}
+  .sheet{
+    background:#fff;width:100%;max-width:520px;border-radius:24px 24px 0 0;
+    box-shadow:var(--shadow-lg);padding:8px 22px 30px;max-height:88vh;overflow-y:auto;
+    transform:translateY(30px);transition:transform .25s cubic-bezier(.2,.9,.3,1);
+  }
+  @media(min-width:560px){.sheet{border-radius:24px}}
+  .overlay.open .sheet{transform:translateY(0)}
+  .grab{width:42px;height:5px;border-radius:3px;background:#e2e4ee;margin:8px auto 14px}
+  .sheet .head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .sheet .tag{display:inline-block;font-size:11px;font-weight:800;padding:4px 11px;border-radius:999px;margin-bottom:8px}
+  .sheet[data-cat="invest"] .tag{color:var(--c-invest);background:var(--c-invest-bg)}
+  .sheet[data-cat="life"] .tag{color:var(--c-life);background:var(--c-life-bg)}
+  .sheet[data-cat="econ"] .tag{color:var(--c-econ);background:var(--c-econ-bg)}
+  .sheet[data-cat="tax"] .tag{color:var(--c-tax);background:var(--c-tax-bg)}
+  .sheet[data-cat="chart"] .tag{color:var(--c-chart);background:var(--c-chart-bg)}
+  .sheet[data-cat="corp"] .tag{color:var(--c-corp);background:var(--c-corp-bg)}
+  .sheet h2{margin:0;font-size:24px;font-weight:800}
+  .sheet .reading{color:var(--ink-soft);font-size:12.5px;margin-top:3px}
+  .sheet .mstar{border:0;background:#f4f5fa;cursor:pointer;font-size:20px;color:#d7dae6;width:42px;height:42px;border-radius:50%;flex:0 0 auto;transition:.15s}
+  .sheet .mstar.on{color:var(--fav)}
+  .block{margin-top:18px}
+  .block .label{
+    font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--ink-soft);
+    display:flex;align-items:center;gap:7px;margin-bottom:7px;text-transform:uppercase;
+  }
+  .block .label .emo{font-size:15px}
+  .block .oneline{
+    font-size:17px;font-weight:700;line-height:1.6;
+    background:linear-gradient(transparent 62%, #fff2cf 62%);display:inline;
+  }
+  .block p{margin:0;font-size:15px;color:#3a425e}
+  .block.example{background:#f7f8fc;border-radius:14px;padding:14px 16px}
+  .block.example p{color:var(--ink-soft);font-size:14px}
+  .closebtn{
+    margin-top:24px;width:100%;border:0;background:var(--ink);color:#fff;
+    font-size:15px;font-weight:700;padding:14px;border-radius:14px;cursor:pointer;
+  }
+  footer{max-width:760px;margin:36px auto 0;padding:0 20px;text-align:center;color:#aab0c4;font-size:11.5px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo"><span class="dot"></span>Money Rise</span>
+  <h1>お金の<span class="accent">むずかしい言葉</span>を<br>プチッと解説</h1>
+  <p class="lead">気になる用語をタップするだけ。初心者にもわかる、短い説明だけをお届けします。</p>
+</header>
+
+<div class="toolbar">
+  <div class="search">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.2-3.2"></path></svg>
+    <input id="q" type="search" placeholder="用語をさがす（例：NISA、インフレ）" autocomplete="off">
+    <button class="clear" id="clear" aria-label="クリア">×</button>
+  </div>
+</div>
+
+<div class="chips" id="chips">
+  <button class="chip active" data-cat="all"><span class="ic"></span>すべて</button>
+  <button class="chip" data-cat="invest"><span class="ic"></span>投資・資産運用</button>
+  <button class="chip" data-cat="life"><span class="ic"></span>お金の基礎・家計</button>
+  <button class="chip" data-cat="econ"><span class="ic"></span>経済・市場</button>
+  <button class="chip" data-cat="tax"><span class="ic"></span>税金・制度</button>
+  <button class="chip" data-cat="chart"><span class="ic"></span>チャート・売買</button>
+  <button class="chip" data-cat="corp"><span class="ic"></span>企業・財務</button>
+  <button class="chip" data-cat="fav"><span class="ic"></span>お気に入り</button>
+</div>
+
+<div class="actions">
+  <span class="count" id="count"></span>
+  <button class="random" id="random">🎲 ランダムで1語</button>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<div class="empty" id="empty" style="display:none">
+  <div class="big">🔍</div>
+  <p>見つかりませんでした。<br>別のキーワードで試してみてください。</p>
+</div>
+
+<footer>
+  ※本アプリの解説は、初心者向けに要点をやさしく説明したものです。<br>
+  投資・税金の判断は最新の公式情報や専門家の確認のうえで行ってください。
+</footer>
+
+<!-- モーダル -->
+<div class="overlay" id="overlay">
+  <div class="sheet" id="sheet" data-cat="">
+    <div class="grab"></div>
+    <div class="head">
+      <div>
+        <span class="tag" id="m-tag"></span>
+        <h2 id="m-term"></h2>
+        <div class="reading" id="m-reading"></div>
+      </div>
+      <button class="mstar" id="m-star" aria-label="お気に入り">☆</button>
+    </div>
+    <div class="block">
+      <div class="label"><span class="emo">💡</span>ひとことで言うと</div>
+      <span class="oneline" id="m-short"></span>
+    </div>
+    <div class="block">
+      <div class="label"><span class="emo">📝</span>プチ解説</div>
+      <p id="m-body"></p>
+    </div>
+    <div class="block example">
+      <div class="label"><span class="emo">🌱</span>たとえ話</div>
+      <p id="m-example"></p>
+    </div>
+    <button class="closebtn" id="close">とじる</button>
+  </div>
+</div>
+
+<script>
+/* ====== 用語データ ====== */
+const CATS = {
+  invest:"投資・資産運用", life:"お金の基礎・家計", econ:"経済・市場", tax:"税金・制度",
+  chart:"チャート・売買", corp:"企業・財務"
+};
+const DATA = [
+  // ---------- 投資・資産運用 ----------
+  {cat:"invest",term:"NISA",reading:"ニーサ",short:"投資で出た利益に税金がかからない、おトクな制度。",
+   body:"ふつう投資で儲けると、その利益の約20%が税金で引かれます。NISA口座の中で投資すると、その税金がゼロに。決められた年間枠の中なら、利益をまるごと受け取れます。",
+   example:"通常は1万円儲けても約2千円が税金。NISAなら1万円まるごと手元に残るイメージです。"},
+  {cat:"invest",term:"iDeCo",reading:"イデコ",short:"自分でつくる年金。掛けたお金がそのまま節税になる。",
+   body:"毎月コツコツ積み立てて、自分で運用する私的年金です。積み立てた金額が所得から差し引かれるので、その年の税金が安くなります。原則60歳まで引き出せないのが注意点。",
+   example:"貯金しながら税金も減らせる、いわば『未来の自分への仕送り＋節税』のセットです。"},
+  {cat:"invest",term:"投資信託",reading:"とうししんたく",short:"みんなのお金をまとめ、プロが代わりに運用する商品。",
+   body:"たくさんの人から集めたお金を一つにまとめ、運用のプロが株や債券などに分散して投資してくれます。少額から始められ、自分で銘柄を選ぶ手間がいりません。",
+   example:"いろんな食材が少しずつ入った『幕の内弁当』のように、1つ買うだけで分散投資ができます。"},
+  {cat:"invest",term:"ドルコスト平均法",reading:"どるこすとへいきんほう",short:"毎月同じ金額ずつ買い続けて、買値を平らにする方法。",
+   body:"価格が高いときは少なく、安いときは多く買うことになるため、平均の購入価格が安定します。タイミングを当てる必要がなく、初心者でも続けやすい買い方です。",
+   example:"毎月3,000円分ずつ買うと、安い月にたくさん仕込めて、高値づかみを防げます。"},
+  {cat:"invest",term:"複利",reading:"ふくり",short:"増えた利益にもさらに利益がつく、雪だるま効果。",
+   body:"利益を引き出さずに再投資すると、元のお金だけでなく『増えた分』にも利益がつきます。時間が経つほど増え方が加速するのが最大の魅力です。",
+   example:"雪だるまを転がすほど大きくなるように、長く続けるほどお金の増えるスピードが上がります。"},
+  {cat:"invest",term:"リスク許容度",reading:"りすくきょようど",short:"値下がりにどこまで耐えられるか、という自分の体力。",
+   body:"投資は価格が上下します。一時的にいくら下がっても生活や心が平気でいられるか、という度合いのこと。年齢・収入・性格で人それぞれ違います。",
+   example:"絶叫マシンに乗れる人と苦手な人がいるのと同じ。自分に合った高さ（リスク）を選ぶことが大切です。"},
+  {cat:"invest",term:"分散投資",reading:"ぶんさんとうし",short:"1つに集中せず、いくつかに分けてリスクを下げること。",
+   body:"値動きの違うものに分けて投資すると、どれかが下がっても他がカバーしてくれます。『卵を一つのカゴに盛るな』という投資の基本の考え方です。",
+   example:"全財産を1社の株に入れて倒産したら大ダメージ。複数に分ければ、痛手は一部で済みます。"},
+  {cat:"invest",term:"インデックスファンド",reading:"いんでっくすふぁんど",short:"市場全体の平均点をめざす、手数料が安い投資信託。",
+   body:"日経平均やS&P500など『市場全体の動き（指数）』に連動するように作られた商品です。プロが個別に銘柄を選ぶタイプより手数料が安く、初心者に人気です。",
+   example:"クラス全員の平均点を取りにいくイメージ。1位は狙わないけど、大コケもしにくい堅実型です。"},
+  {cat:"invest",term:"配当",reading:"はいとう",short:"株を持っていると会社から分けてもらえる利益のおすそ分け。",
+   body:"会社が稼いだ利益の一部を、株主に現金などで還元するのが配当です。株価が上がらなくても、持っているだけで定期的に受け取れる場合があります。",
+   example:"お店のオーナー（株主）として、お店の儲けの一部を年1〜2回もらえるようなものです。"},
+  {cat:"invest",term:"利回り",reading:"りまわり",short:"投資したお金に対して、1年でどれくらい増えたかの割合。",
+   body:"『もうけ ÷ 投資した金額』で計算する、効率の良さを表す数字です。％で示され、利回りが高いほど効率よく増えていることになります。",
+   example:"100万円を投資して年に3万円増えたら、利回りは3%。預金の金利の何百倍にもなることがあります。"},
+
+  {cat:"invest",term:"株式",reading:"かぶしき",short:"会社の所有権を細かく分けた権利。買うと株主になれる。",
+   body:"会社がお金を集めるために発行するもので、買うとその会社のオーナーの一人（株主）になります。値上がりで利益を狙えるほか、配当や株主優待がもらえることも。",
+   example:"人気が出れば株価が上がり、買った値段との差が利益に。会社の『応援チケット兼ねた権利書』です。"},
+  {cat:"invest",term:"債券",reading:"さいけん",short:"国や企業にお金を貸して、利息をもらう仕組み。",
+   body:"国や会社にお金を貸した証書です。決められた期間が来ると元本が戻り、その間は利息を受け取れます。株より値動きが穏やかで、堅実な運用先とされます。",
+   example:"『◯年後に返すね、利息もつけるね』という借用書。国が発行するものが国債です。"},
+  {cat:"invest",term:"ETF",reading:"いーてぃーえふ",short:"株のようにリアルタイムで売買できる投資信託。",
+   body:"上場している投資信託で、株と同じように市場が開いている時間にいつでも売買できます。多くは指数に連動し、手数料が安いのが特徴です。",
+   example:"投資信託の『分散の良さ』と、株の『いつでも売買できる手軽さ』のいいとこ取りです。"},
+  {cat:"invest",term:"REIT",reading:"りーと",short:"みんなのお金を集めて不動産に投資する商品。",
+   body:"オフィスビルやマンションなどに投資し、その家賃収入を分配してくれる仕組みです。少額から『大家さん』気分で不動産投資ができます。",
+   example:"数万円から、ビルやホテルのオーナーの一員に。家賃が分配金として入ってきます。"},
+  {cat:"invest",term:"ポートフォリオ",reading:"ぽーとふぉりお",short:"自分が持っている資産の組み合わせ・配分のこと。",
+   body:"株・債券・預金などを、どんな割合で持っているかの全体像です。バランスよく組むことで、リスクを抑えながら安定した運用をめざせます。",
+   example:"『株60%・債券30%・現金10%』のように、お金の配置図を表したものです。"},
+  {cat:"invest",term:"リバランス",reading:"りばらんす",short:"崩れた資産の割合を、最初の比率に戻す調整。",
+   body:"運用していると値動きで配分が崩れます。増えすぎたものを売り、減ったものを買い足して元の比率に戻すことで、リスクの取りすぎを防ぎます。",
+   example:"株が増えて割合が偏ったら、一部売って債券を買い、バランスを整え直すイメージです。"},
+  {cat:"invest",term:"信託報酬",reading:"しんたくほうしゅう",short:"投資信託を持っている間、ずっとかかる運用手数料。",
+   body:"プロに運用を任せる対価として、毎日少しずつ資産から差し引かれます。年率0.1%〜2%程度と幅があり、低いほど長期では有利になります。",
+   example:"同じ中身なら手数料は安いほど得。年1%と0.1%では、長く持つほど差が大きく開きます。"},
+  {cat:"invest",term:"元本",reading:"がんぽん",short:"投資や預金に最初に入れた、もとのお金。",
+   body:"利益や利息を含まない、自分が出した元のお金のことです。『元本割れ』とは、運用に失敗してこの元のお金より減ってしまう状態を指します。",
+   example:"10万円を投資したら元本は10万円。9万円に減ったら『元本割れ』しています。"},
+  {cat:"invest",term:"損切り",reading:"そんぎり",short:"損が広がる前に売って、損失を確定させること。",
+   body:"値下がりした投資を、これ以上の損を防ぐためにあえて売る判断です。つらい決断ですが、傷を浅く抑えて次に資金を回すための大切なテクニックです。",
+   example:"『もっと下がるかも』という時に早めに手放し、大ケガを防ぐ。攻めではなく守りの一手です。"},
+  {cat:"invest",term:"含み益・含み損",reading:"ふくみえき・ふくみぞん",short:"まだ売っていない、評価上のもうけ・損のこと。",
+   body:"保有中の資産が値上がりすれば含み益、値下がりすれば含み損です。売って初めて利益や損が『確定』するので、それまでは数字上の状態にすぎません。",
+   example:"買った株が上がっても、売るまでは『含み益』。売って初めて本当のもうけになります。"},
+  {cat:"invest",term:"つみたて投資枠",reading:"つみたてとうしわく",short:"NISAの中にある、コツコツ積立向けの非課税枠。",
+   body:"長期の積立に向いた、国が選んだ投資信託などを毎月少しずつ買える枠です。初心者がまず使いやすく、利益に税金がかからないメリットはNISAと同じです。",
+   example:"毎月1万円ずつ自動で積み立て、その利益は非課税。コツコツ派にぴったりの入り口です。"},
+  {cat:"invest",term:"全世界株式（オルカン）",reading:"ぜんせかいかぶしき",short:"世界中の株にまとめて分散投資できる人気の商品。",
+   body:"先進国から新興国まで、世界中の会社の株に一度に投資できる投資信託です。1本で究極の分散ができるとして、初心者にとても人気があります。",
+   example:"これ1本買うだけで、世界中の数千社の株主に。世界経済の成長にまるごと乗るイメージです。"},
+  {cat:"invest",term:"S&P500",reading:"えすあんどぴーごひゃく",short:"アメリカの代表的な500社をまとめた株価指数。",
+   body:"米国を代表する大企業500社の株価から計算される指数です。世界経済を引っ張る米国企業に投資できるとして、連動する商品が人気を集めています。",
+   example:"アップルやアマゾンなど、米国の超有名企業500社にまとめて投資する感覚です。"},
+  {cat:"invest",term:"レバレッジ",reading:"ればれっじ",short:"手持ち以上の金額で取引し、損益を大きくする仕組み。",
+   body:"少ない資金を担保に、何倍もの金額を動かせる仕組みです。うまくいけば利益も倍増しますが、失敗すると損失も倍増する、上級者向けの諸刃の剣です。",
+   example:"10万円で100万円分の取引ができる代わり、損する時も10倍。初心者は手を出さないのが無難です。"},
+  {cat:"invest",term:"ロボアドバイザー",reading:"ろぼあどばいざー",short:"AIが自動で資産運用してくれるサービス。",
+   body:"いくつかの質問に答えるだけで、AIが自分に合った配分を提案し、買い付けやリバランスまで自動でやってくれます。手間をかけたくない人向けです。",
+   example:"『おまかせ運用』。考えるのが苦手でも、質問に答えるだけで運用がスタートします。"},
+  {cat:"invest",term:"IPO",reading:"あいぴーおー",short:"会社が初めて株を市場に公開すること。新規上場。",
+   body:"未上場だった会社が、株式を証券取引所で売買できるようにすることです。上場時に株を買える権利は抽選になることが多く、人気を集めます。",
+   example:"会社の株が『誰でも買えるようになる』デビュー戦。話題の企業は応募が殺到します。"},
+
+  {cat:"invest",term:"インカムゲイン",reading:"いんかむげいん",short:"資産を持ち続けることで受け取れる利益。",
+   body:"配当や利息、家賃のように、保有しているだけで定期的に入ってくる収益のことです。売って得るキャピタルゲインと対になる、コツコツ型の利益です。",
+   example:"株の配当や預金の利息がこれ。『持っているだけでチャリンと入る』タイプの利益です。"},
+  {cat:"invest",term:"キャピタルゲイン",reading:"きゃぴたるげいん",short:"安く買って高く売り、その差で得る利益。",
+   body:"買った時より高い値段で売れた時の、その差額のもうけです。値上がり益とも呼ばれ、配当などのインカムゲインと並ぶ投資の二大利益の一つです。",
+   example:"100万円で買った株を120万円で売れば、差額の20万円がキャピタルゲインです。"},
+  {cat:"invest",term:"暗号資産（仮想通貨）",reading:"あんごうしさん",short:"ネット上だけでやり取りされるデジタルのお金。",
+   body:"ビットコインなどに代表される、国が発行しないデジタル資産です。値動きが非常に激しく、大きく増える可能性がある反面、暴落リスクも高い上級者向けです。",
+   example:"1日で何割も動くことも。初心者はなくなっても困らない少額にとどめるのが鉄則です。"},
+  {cat:"invest",term:"アクティブファンド",reading:"あくてぃぶふぁんど",short:"市場平均超えを目指し、プロが銘柄を厳選する投信。",
+   body:"運用のプロが銘柄を選び、指数(平均)を上回る成績を狙う投資信託です。当たれば大きい反面、手数料が高く、平均に勝ち続けるのは簡単ではありません。",
+   example:"インデックス(平均点狙い)に対し、こちらは『1位を狙う』タイプ。手数料も高めです。"},
+  {cat:"invest",term:"基準価額",reading:"きじゅんかがく",short:"投資信託の『今の値段』を表す数字。",
+   body:"投資信託の値段で、1日1回計算されます。多くは1万口あたりで表示され、これが買った時より上がっていれば利益が出ている状態です。",
+   example:"株でいう株価のようなもの。投信を買うときの値段の目安になります。"},
+  {cat:"invest",term:"目論見書",reading:"もくろみしょ",short:"投資信託の説明書。買う前に必ず見たい書類。",
+   body:"その商品の特徴・リスク・手数料などがまとめられた公式の説明資料です。購入前に渡され、コストや投資先を確認するための大切な判断材料になります。",
+   example:"投信版の『取扱説明書』。特に手数料(信託報酬)の欄は必ずチェックしましょう。"},
+  {cat:"invest",term:"ノーロード",reading:"のーろーど",short:"買うときの手数料がゼロの投資信託。",
+   body:"購入時手数料がかからない投資信託のことです。同じような中身ならコストは低いほど有利なので、初心者はノーロードを選ぶのが基本とされています。",
+   example:"入り口の手数料が無料。長く積み立てるほど、この差がじわじわ効いてきます。"},
+  {cat:"invest",term:"単元未満株（ミニ株）",reading:"たんげんみまんかぶ",short:"1株から買える、少額用の株のしくみ。",
+   body:"通常100株単位の株を、1株から買える仕組みです。数百〜数千円で有名企業の株主になれるため、少額で投資を始めたい初心者に向いています。",
+   example:"本来10万円必要な株も、1株なら千円台で。お試し投資にぴったりです。"},
+  {cat:"invest",term:"グロース株（成長株）",reading:"ぐろーすかぶ",short:"これから大きく伸びると期待される会社の株。",
+   body:"売上や利益がぐんぐん伸びている、成長期待の高い会社の株です。値上がり益を狙いやすい反面、期待が外れると大きく下がることもあります。",
+   example:"配当は少なくても『これから伸びる』に賭けるタイプ。ハイテク企業などが代表例です。"},
+  {cat:"invest",term:"バリュー株（割安株）",reading:"ばりゅーかぶ",short:"実力に比べ、株価が安く放置されている会社の株。",
+   body:"業績はしっかりしているのに、株価が本来の価値より安く評価されている会社の株です。見直されて株価が戻ることを狙う、堅実派に人気のスタイルです。",
+   example:"『中身は良いのに安売り中』の株を買って、人気が戻るのを待つイメージです。"},
+  {cat:"invest",term:"時価総額",reading:"じかそうがく",short:"会社全体の値段。株価×株数で表す規模の大きさ。",
+   body:"その会社の株をすべて買い集めるといくらになるかを示す数字で、会社の大きさを表します。時価総額が大きいほど、一般に規模が大きく安定した会社とされます。",
+   example:"株価1,000円×100万株なら時価総額10億円。会社の『お値段』の大きさです。"},
+  {cat:"invest",term:"PER",reading:"ぴーいーあーる",short:"株価が利益の何年分か、を示す割安・割高の目安。",
+   body:"株価収益率のこと。株価が会社の利益に対して高いか安いかを見る指標で、数字が低いほど割安とされます。同業他社と比べて使うのが基本です。",
+   example:"PERが低い＝『稼ぎのわりに株価が安い』。買い時を探すヒントになります。"},
+  {cat:"invest",term:"PBR",reading:"ぴーびーあーる",short:"株価が会社の資産の何倍か、を示す割安の目安。",
+   body:"株価純資産倍率のこと。会社が持つ資産に対して株価が高いか安いかを見ます。1倍を下回ると、資産価値より株価が安い『割安』とされることがあります。",
+   example:"PBR1倍割れは『資産価値より株価が安い』状態。割安株を探す目印になります。"},
+  {cat:"invest",term:"ROE",reading:"あーるおーいー",short:"会社がお金をどれだけ上手に稼ぎへ変えたかの指標。",
+   body:"自己資本利益率のこと。株主から預かったお金を使って、どれだけ効率よく利益を生んだかを表します。高いほど『稼ぐ力のある会社』とされます。",
+   example:"ROEが高い会社＝お金の使い方が上手な会社。投資先選びの定番指標です。"},
+  {cat:"invest",term:"配当利回り",reading:"はいとうりまわり",short:"株価に対して、年間配当が何％かを示す数字。",
+   body:"『1年の配当 ÷ 株価』で計算し、配当の効率を表します。この数字が高いほど、株価に対してたくさん配当をもらえる、ということになります。",
+   example:"株価2,000円で年60円の配当なら利回り3%。預金金利よりずっと高いことも。"},
+  {cat:"invest",term:"72の法則",reading:"ななじゅうにのほうそく",short:"お金が2倍になる年数がパッとわかる計算式。",
+   body:"『72 ÷ 利回り(%)』で、複利でお金が約2倍になるまでのおおよその年数がわかる便利な法則です。複利の力を実感するのに役立ちます。",
+   example:"利回り6%なら 72÷6＝12年 で約2倍。複利のすごさが一目でわかります。"},
+  {cat:"invest",term:"4%ルール",reading:"よんぱーせんとるーる",short:"資産の4%ずつ使えば、減らさず暮らせるという目安。",
+   body:"蓄えた資産を年4%ずつ取り崩せば、運用益でまかなえて長持ちする、という早期リタイア(FIRE)の考え方です。必要な資産額を逆算するのに使われます。",
+   example:"年間支出240万円なら、その25倍＝6,000万円が目標、という具合に逆算できます。"},
+  {cat:"invest",term:"TOPIX",reading:"とぴっくす",short:"東証全体の動きを表す、もう一つの代表的な指数。",
+   body:"東京証券取引所の幅広い銘柄をまとめた株価指数です。225社だけの日経平均より対象が広く、日本市場全体の動きをより反映するとされます。",
+   example:"日経平均と並ぶ日本株の体温計。ニュースで日経平均とセットでよく登場します。"},
+  {cat:"invest",term:"NASDAQ（ナスダック総合指数）",reading:"なすだっく",short:"米国のハイテク企業が多い市場の株価指数。",
+   body:"アップルやマイクロソフトなど、IT・ハイテク企業が多く上場する米国市場の指数です。成長企業が中心のため、値動きが大きめなのが特徴です。",
+   example:"『米国のハイテク株が元気かどうか』を映す指数。S&P500と並んで注目されます。"},
+  {cat:"invest",term:"分配金",reading:"ぶんぱいきん",short:"投資信託から、定期的に受け取れるお金。",
+   body:"投資信託の運用益などから投資家に支払われるお金です。ただし利益ではなく、自分の元本から払われる場合(特別分配金)もあるので、中身の確認が大切です。",
+   example:"受け取れてうれしい反面、それが『自分の元本の取り崩し』のこともあるので要注意です。"},
+  {cat:"invest",term:"毎月分配型投資信託",reading:"まいつきぶんぱいがた",short:"毎月お金がもらえるが、注意も必要な投信。",
+   body:"毎月分配金が受け取れる投資信託です。一見お得ですが、利益が出ていなくても元本を取り崩して払うことがあり、複利が効きにくいため初心者には不向きとされます。",
+   example:"『毎月もらえる』安心感の裏で、資産が増えにくいことも。仕組みの理解が必須です。"},
+  {cat:"invest",term:"リスク・リターン",reading:"りすく・りたーん",short:"期待できる利益と、その振れ幅の関係。",
+   body:"リターンは見込めるもうけ、リスクはその結果の振れ幅(不確実さ)のこと。投資では『大きな利益を狙うほどリスクも大きい』という関係が基本です。",
+   example:"ローリスク・ハイリターンの商品は基本ありません。うまい話には要注意のサインです。"},
+  {cat:"invest",term:"塩漬け",reading:"しおづけ",short:"値下がりした株を、売れずに持ち続けてしまう状態。",
+   body:"買った後に値下がりし、損を確定したくなくて売るに売れず、長く放置している状態を指します。資金が動かせず、もったいない状態になりがちです。",
+   example:"『下がったから売れない…』と握りしめたまま何年も。初心者が陥りやすい失敗です。"},
+  {cat:"invest",term:"ナンピン（難平）",reading:"なんぴん",short:"値下がり時に買い増し、平均購入額を下げる手法。",
+   body:"持っている資産が下がった時にさらに買い足し、平均の買値を下げる方法です。回復すれば有利ですが、下がり続けると損が膨らむ、諸刃の剣でもあります。",
+   example:"下がるたび買い足して平均値を下げる作戦。読みを外すと傷が深くなるので注意です。"},
+
+  // ---------- お金の基礎・家計 ----------
+  {cat:"life",term:"可処分所得",reading:"かしょぶんしょとく",short:"税金や保険料を引いた、自由に使える手取りのお金。",
+   body:"給料の額面（総支給）から、税金や社会保険料を差し引いて、実際に手元に残る金額のこと。家計で本当に使えるのはこの『手取り』です。",
+   example:"月給25万円でも、引かれて手取り20万円なら、可処分所得は20万円です。"},
+  {cat:"life",term:"固定費",reading:"こていひ",short:"毎月ほぼ決まって出ていく、金額の変わらない支出。",
+   body:"家賃・通信費・保険・サブスクなど、使っても使わなくても毎月かかるお金です。一度見直せば節約効果がずっと続くので、節約はまず固定費からが鉄則。",
+   example:"スマホを格安プランに変えれば、何もしなくても毎月ずっと安くなります。これが固定費見直しの強さ。"},
+  {cat:"life",term:"生活防衛資金",reading:"せいかつぼうえいしきん",short:"もしもの時に備えて、すぐ使えるよう置いておく貯金。",
+   body:"失業・病気・災害など、急な出費に備えるためのお金です。生活費の3〜6か月分が目安。投資に回さず、いつでも引き出せる預金で確保しておきます。",
+   example:"突然の収入ゼロでも数か月は暮らせる『お金のお守り』。これがあると安心して投資にも挑戦できます。"},
+  {cat:"life",term:"掛け捨て型保険",reading:"かけすてがたほけん",short:"貯蓄はないけど、安い保険料で大きな保障が買える保険。",
+   body:"払ったお金は戻ってきませんが、その分とても安く、もしもの時に大きな保障が受けられます。『貯蓄は貯蓄、保険は保険』と分けたい人に向いています。",
+   example:"火災保険のように『起きたら困る大ピンチ』だけに備える、コスパ重視の保険です。"},
+  {cat:"life",term:"住宅ローン",reading:"じゅうたくろーん",short:"家を買うために銀行からお金を借り、長期で返す仕組み。",
+   body:"数千万円を一度に払うのは難しいため、銀行が立て替え、毎月少しずつ利息をつけて返済します。金利のタイプ（固定・変動）で総返済額が大きく変わります。",
+   example:"借りた額に『利息』という利用料が乗るので、3,000万円借りて総額3,500万円返す、ということも。"},
+  {cat:"life",term:"ふるさと納税",reading:"ふるさとのうぜい",short:"応援したい自治体に寄付して、返礼品をもらえる制度。",
+   body:"好きな自治体に寄付すると、自己負担2,000円を除いた金額が、翌年の税金から差し引かれます。お肉や果物などの返礼品ももらえる、人気の制度です。",
+   example:"実質2,000円で各地の特産品が届くイメージ。払う税金を『先に・おトクに』使う感覚です。"},
+  {cat:"life",term:"先取り貯金",reading:"さきどりちょきん",short:"使う前に貯金を別口座へ。残ったお金で生活する方法。",
+   body:"給料が入ったらまず貯金分をよけてしまい、残りで暮らすやり方です。『余ったら貯金』だとなかなか貯まらない人でも、自動的に貯まっていきます。",
+   example:"先に5万円を別口座へ移してしまえば、残り15万円が使える全額。自然と貯まります。"},
+  {cat:"life",term:"信用情報",reading:"しんようじょうほう",short:"お金の借入や返済のきちんと度を記録したデータ。",
+   body:"クレジットカードやローンの利用・返済の履歴が記録されています。延滞などがあると、新しいローンやカードの審査に通りにくくなります。",
+   example:"お金の世界の『通信簿』。きちんと返している人ほど、いざという時に信用されます。"},
+
+  {cat:"life",term:"ライフプラン",reading:"らいふぷらん",short:"結婚・住宅・老後など、人生のお金の計画。",
+   body:"これからの人生で起きるお金のイベントを見通し、いつ・いくら必要かを整理することです。先に把握しておくと、貯蓄や投資の目標が立てやすくなります。",
+   example:"『35歳で家、40歳で教育費…』と先に地図を描くと、今やるべき備えが見えてきます。"},
+  {cat:"life",term:"給与明細",reading:"きゅうよめいさい",short:"給料の内訳（支給と天引き）が書かれた書類。",
+   body:"額面の給料から、税金や社会保険料がいくら引かれ、手取りがいくらになったかが分かります。自分のお金の流れを知る、家計管理の出発点です。",
+   example:"『総支給25万→手取り20万』の差はどこへ？を教えてくれるのが、この一枚です。"},
+  {cat:"life",term:"ボーナス",reading:"ぼーなす",short:"毎月の給料とは別に、年数回もらえる一時金。",
+   body:"会社の業績などに応じて支給される賞与です。金額が変動しやすいため、生活費に組み込みすぎず、貯蓄や投資、ローン返済に回すのが安心です。",
+   example:"あてにして使い切ると危険。『出たらラッキー』くらいで貯蓄に回すのが家計の安定につながります。"},
+  {cat:"life",term:"貯蓄率",reading:"ちょちくりつ",short:"手取りのうち、何％を貯められたかの割合。",
+   body:"『貯蓄額 ÷ 手取り収入』で計算します。収入の多さより、この割合を高く保てるかが、お金が貯まる人の共通点。まずは2割を目標にするのが定番です。",
+   example:"手取り20万円で4万円貯めたら貯蓄率20%。収入が増えても率を保てるかがカギです。"},
+  {cat:"life",term:"クレジットカード",reading:"くれじっとかーど",short:"後払いで買い物ができ、ポイントも貯まるカード。",
+   body:"使った分を後でまとめて支払う仕組みです。一括払いなら手数料はかからず、ポイントも貯まってお得。ただし使いすぎには注意が必要です。",
+   example:"今月使った分が翌月にまとめて引き落とし。計画的に使えば、現金よりお得な支払い手段です。"},
+  {cat:"life",term:"リボ払い",reading:"りぼばらい",short:"毎月の支払いを一定にする代わり、手数料が高い払い方。",
+   body:"いくら使っても月々の支払いが一定になりますが、その裏で年15%前後の高い手数料がかかり続けます。残高が減りにくく、注意が必要な支払い方法です。",
+   example:"楽に見えても手数料が雪だるま式に。『リボ』は基本オフにしておくのが安全です。"},
+  {cat:"life",term:"繰り上げ返済",reading:"くりあげへんさい",short:"ローンを前倒しで返し、利息を減らすこと。",
+   body:"住宅ローンなどを予定より早く返済することで、その分の利息を払わずに済みます。手元資金とのバランスを見て使うと、総返済額を大きく減らせます。",
+   example:"100万円を早めに返すと、その分にかかるはずだった数十万円の利息がまるごと不要に。"},
+  {cat:"life",term:"変動金利・固定金利",reading:"へんどうきんり・こていきんり",short:"金利が変わるタイプと、ずっと変わらないタイプ。",
+   body:"住宅ローンなどの金利の選び方です。変動は今は低いけれど将来上がるかも。固定は少し高めでも返済額がずっと一定で安心。性格や状況で選びます。",
+   example:"変動は『今お得・将来は不確実』、固定は『割高でも安心』。読めない人ほど固定が無難です。"},
+  {cat:"life",term:"老後資金",reading:"ろうごしきん",short:"退職後の生活を支えるために備えるお金。",
+   body:"年金だけでは足りない分を、現役のうちに準備しておくお金です。NISAやiDeCoを使ってコツコツ積み立てるのが、近年の定番のやり方です。",
+   example:"よく言われる『老後2,000万円問題』。今から少しずつ備えるほど、月々の負担は軽くなります。"},
+  {cat:"life",term:"教育資金",reading:"きょういくしきん",short:"子どもの進学などにそなえる、まとまったお金。",
+   body:"特に大学進学時に大きな費用がかかります。使う時期がはっきりしているので、いつまでにいくら、と逆算して計画的に準備するのが安心です。",
+   example:"大学4年間で数百万円。生まれた時から少しずつ積めば、月々の負担はぐっと軽くなります。"},
+  {cat:"life",term:"終身保険",reading:"しゅうしんほけん",short:"一生涯保障が続き、貯蓄性もある保険。",
+   body:"解約すればお金が戻る貯蓄性のある保険ですが、その分保険料は高めです。保障と貯蓄のどちらを優先したいかで、掛け捨て型と比べて選びます。",
+   example:"保障を持ちつつ貯金もしたい人向け。ただし『保険と貯蓄は分ける』考え方も根強くあります。"},
+  {cat:"life",term:"医療保険",reading:"いりょうほけん",short:"入院や手術にそなえる保険。",
+   body:"病気やケガで入院・手術した時に給付金が受け取れます。ただし日本は公的保険が手厚いため、貯蓄で備えられるなら不要、という考え方もあります。",
+   example:"入院1日◯円などの給付が出ます。まずは公的保険＋貯蓄で足りるか考えるのがコツです。"},
+  {cat:"life",term:"電子マネー",reading:"でんしまねー",short:"事前にチャージして使う、デジタルのお金。",
+   body:"交通系ICやQRコード決済などで、現金を使わず支払いができます。使った記録が残るので家計管理がしやすく、ポイントも貯まりやすいのが利点です。",
+   example:"改札やレジでピッ。チャージ式なので使いすぎ防止にもなり、履歴も自動で残ります。"},
+  {cat:"life",term:"ポイ活",reading:"ぽいかつ",short:"ポイントを貯めて、賢く得をする活動。",
+   body:"買い物やサービス利用で貯まるポイントを、効率よく集めて活用することです。固定費の支払いをポイントが貯まる方法に変えるだけでも効果があります。",
+   example:"毎月の支払いをポイント還元のあるカードにするだけで、年間で数千〜数万円分お得に。"},
+
+  {cat:"life",term:"年収の壁（103万・130万円の壁）",reading:"ねんしゅうのかべ",short:"働き方で税金や社会保険の負担が変わる収入ライン。",
+   body:"パートなどで年収が一定額を超えると、税金や社会保険料が発生し、手取りが変わる境目のことです。103万円は税金、130万円は社会保険の代表的なラインです。",
+   example:"『あと少しで130万円』という時は、超えると手取りが減ることも。働き方の調整ポイントです。"},
+  {cat:"life",term:"公的年金",reading:"こうてきねんきん",short:"国が運営する、老後の生活を支える年金制度。",
+   body:"全員が加入する国民年金と、会社員などが上乗せで入る厚生年金があります。老後だけでなく、病気で障害が残った時や、家族を残して亡くなった時の保障にもなります。",
+   example:"老後の土台になるお金。これにiDeCoやNISAで自分の備えを上乗せするのが今の主流です。"},
+  {cat:"life",term:"企業型確定拠出年金（企業型DC）",reading:"きぎょうがたかくていきょしゅつねんきん",short:"会社が掛金を出してくれる、私的年金の制度。",
+   body:"会社が毎月掛金を出し、その運用を従業員自身が行う年金制度です。iDeCoの会社版のような仕組みで、運用の成果次第で将来受け取る額が変わります。",
+   example:"会社が積み立ててくれるお金を、自分で運用。商品選びで将来の受取額が変わってきます。"},
+  {cat:"life",term:"解約返戻金",reading:"かいやくへんれいきん",short:"貯蓄型の保険を途中でやめた時に戻るお金。",
+   body:"終身保険などの貯蓄性のある保険を解約した時に受け取れるお金です。早く解約するほど戻りが少なく、払った額を下回る(元本割れ)ことも多いので注意が必要です。",
+   example:"途中解約だと、払った保険料より少なく戻ることが多数。加入前に確認したい点です。"},
+  {cat:"life",term:"ペイオフ制度",reading:"ぺいおふせいど",short:"銀行が破綻しても、預金を一定額まで守る仕組み。",
+   body:"万一銀行が経営破綻しても、1金融機関あたり元本1,000万円とその利息までは保護される制度です。大きな預金は複数の銀行に分けると、より安心です。",
+   example:"1つの銀行につき1,000万円までは守られます。それ以上は銀行を分けるのが安心です。"},
+  {cat:"life",term:"クーリングオフ",reading:"くーりんぐおふ",short:"契約後でも、一定期間なら無条件で解約できる制度。",
+   body:"訪問販売や一部の保険などで、契約後の決められた期間内なら、理由なく契約を取り消せる、消費者を守る制度です。冷静に考え直す時間を与えてくれます。",
+   example:"勢いで契約しても、期間内なら『やっぱりやめます』が可能。覚えておくと安心です。"},
+  {cat:"life",term:"団体信用生命保険（団信）",reading:"だんしん",short:"ローン返済者が亡くなると、残りの返済がゼロになる保険。",
+   body:"住宅ローンを組む人が加入する保険です。返済中に亡くなったり高度障害になったりすると、残りのローンが保険で完済され、残された家族が家を失わずに済みます。",
+   example:"万一の時、残りのローンがチャラに。住宅ローンに付く『もしもの保険』です。"},
+  {cat:"life",term:"フラット35",reading:"ふらっとさんじゅうご",short:"最長35年、ずっと金利が変わらない住宅ローン。",
+   body:"全期間固定金利の代表的な住宅ローンです。返済額が最後まで一定で、将来の金利上昇を気にせず計画を立てられる安心感が魅力です。",
+   example:"変動金利と違い、35年間ずっと返済額が同じ。先々が読めて家計を組みやすいローンです。"},
+  {cat:"life",term:"財形貯蓄",reading:"ざいけいちょちく",short:"給料から天引きで、自動的に貯められる制度。",
+   body:"勤め先を通じて、給料から自動で天引きして貯める制度です。手をつける前に貯まるので続けやすく、住宅用や年金用には利息が優遇される場合もあります。",
+   example:"給料から先に天引きされるので、自然とお金が貯まる『先取り貯金』の会社版です。"},
+
+  // ---------- 経済・市場 ----------
+  {cat:"econ",term:"インフレ",reading:"いんふれ",short:"モノの値段が上がり、お金の価値が下がること。",
+   body:"物価が全体的に上がっていく状態です。同じ100円で買えるものが減るため、現金で持っているだけだと実質的に目減りします。投資が注目される理由の一つ。",
+   example:"昔100円だったジュースが150円に。お金の『買える力』が弱まっている状態です。"},
+  {cat:"econ",term:"デフレ",reading:"でふれ",short:"モノの値段が下がり、お金の価値が上がること。",
+   body:"インフレの逆で、物価が下がり続ける状態です。一見うれしそうですが、企業の利益や給料も下がりやすく、経済全体が元気をなくす原因にもなります。",
+   example:"安く買えてうれしい反面、会社の売上も減り、給料やボーナスも減りがちになります。"},
+  {cat:"econ",term:"円安・円高",reading:"えんやす・えんだか",short:"円の価値が下がるのが円安、上がるのが円高。",
+   body:"外国のお金（ドルなど）と比べた円の強さのこと。円安は輸入品や海外旅行が高くなり、円高は安くなります。数字が大きいほど円安です。",
+   example:"1ドル=100円→150円は『円安』。同じ1ドルの商品を買うのに、より多くの円が必要になります。"},
+  {cat:"econ",term:"金利",reading:"きんり",short:"お金を貸し借りするときの『利用料』の割合。",
+   body:"預けたお金には利息がつき(預金金利)、借りたお金には利息を払います(ローン金利)。世の中の金利が上がると、ローンは負担増、預金は有利になります。",
+   example:"100万円を金利1%で1年預けると1万円増える。逆に借りれば1万円多く返す、という割合です。"},
+  {cat:"econ",term:"GDP",reading:"じーでぃーぴー",short:"その国が1年でどれだけ稼いだかを示す、経済の成績表。",
+   body:"国内で生み出されたモノやサービスの合計額です。GDPが増えていれば経済が成長中、減っていれば停滞、というように国の元気度をはかる代表的な指標です。",
+   example:"国全体の『年間売上』のようなもの。これが伸びると、景気が良いと判断されます。"},
+  {cat:"econ",term:"日経平均株価",reading:"にっけいへいきんかぶか",short:"日本の代表的な225社の株価をまとめた目安の数字。",
+   body:"東京証券取引所の主要225社の株価から計算される指数です。日本の株式市場全体が今、元気か元気でないかをひと目で知るための『体温計』のような存在です。",
+   example:"ニュースで『日経平均が上昇』と聞いたら、日本企業の株が全体的に買われている、というサインです。"},
+  {cat:"econ",term:"為替",reading:"かわせ",short:"異なる国のお金を交換すること、またはその交換比率。",
+   body:"円とドルなど、通貨を交換する仕組みやレートのこと。世界の経済や金利の動きで毎日変わり、輸出入や海外投資の損益に大きく影響します。",
+   example:"海外旅行で円をドルに両替するときのレートが、まさに為替です。"},
+
+  {cat:"econ",term:"景気",reading:"けいき",short:"世の中のお金の流れの、勢い・元気度のこと。",
+   body:"モノやサービスがよく売れ、企業が儲かり給料も増える状態が『好景気』、その逆が『不景気』です。景気は良い時と悪い時を波のように繰り返します。",
+   example:"みんなが活発にお金を使えば好景気、財布のひもが固くなれば不景気、というイメージです。"},
+  {cat:"econ",term:"株価",reading:"かぶか",short:"株1株あたりの値段。需要と人気で上下する。",
+   body:"その会社の株を買いたい人が多ければ上がり、売りたい人が多ければ下がります。会社の業績や将来への期待、世の中の景気などで日々変動します。",
+   example:"人気商品の値段が上がるのと同じで、買いたい人が増えるほど株価も上がります。"},
+  {cat:"econ",term:"日本銀行（日銀）",reading:"にほんぎんこう",short:"日本のお金を管理する、国の中央銀行。",
+   body:"お札を発行したり、世の中に出回るお金の量や金利を調整したりして、物価と経済を安定させる役割を担う特別な銀行です。『銀行の銀行』とも呼ばれます。",
+   example:"私たちが直接使う銀行ではなく、国全体のお金の流れをコントロールする司令塔です。"},
+  {cat:"econ",term:"金融政策",reading:"きんゆうせいさく",short:"日銀が金利などで景気を調整する取り組み。",
+   body:"景気が悪い時は金利を下げてお金を借りやすくし、過熱気味なら金利を上げて落ち着かせます。経済全体のアクセルとブレーキのような役割です。",
+   example:"不景気なら金利を下げて『お金を使ってね』、加熱したら上げて『少し抑えてね』と調整します。"},
+  {cat:"econ",term:"利上げ・利下げ",reading:"りあげ・りさげ",short:"中央銀行が政策金利を上げる・下げること。",
+   body:"利上げは景気の過熱や物価上昇を抑えるため、利下げは景気を刺激するために行われます。ローンや預金、為替、株価まで幅広く影響します。",
+   example:"利上げされると住宅ローンの負担が増え、預金の利息は増える、という形で生活に響きます。"},
+  {cat:"econ",term:"政策金利",reading:"せいさくきんり",short:"中央銀行が決める、世の中の金利の基準。",
+   body:"日銀などが設定する基準の金利で、これを動かすことで世の中全体の金利を誘導します。あらゆる金利の『大もと』になる重要な数字です。",
+   example:"この基準が上がると、住宅ローンや預金など、街中の金利もつられて動きます。"},
+  {cat:"econ",term:"消費者物価指数（CPI）",reading:"しょうひしゃぶっかしすう",short:"物価が上がったか下がったかを測る代表的な指標。",
+   body:"私たちがよく買う商品やサービスの値段の動きを、まとめて数値化したものです。インフレやデフレの度合いをはかる物差しとして使われます。",
+   example:"『去年よりCPIが3%上昇』なら、生活にかかるお金が全体で3%増えた、ということです。"},
+  {cat:"econ",term:"ダウ平均",reading:"だうへいきん",short:"アメリカを代表する企業の株価をまとめた指数。",
+   body:"米国の主要30社の株価から計算される、世界で最も有名な株価指数の一つです。米国経済、ひいては世界経済の調子をはかる目安として注目されます。",
+   example:"日本の日経平均のアメリカ版。世界中の投資家がこの数字に注目しています。"},
+  {cat:"econ",term:"リセッション（景気後退）",reading:"りせっしょん",short:"景気が悪化していく局面のこと。",
+   body:"経済の成長が止まり、後退していく状態です。企業の業績が悪化し、失業が増えやすくなります。株価が下がりやすい一方、安く仕込む好機ともされます。",
+   example:"景気の『下り坂』。つらい時期ですが、長期投資家にとっては安く買えるチャンスにもなります。"},
+  {cat:"econ",term:"バブル",reading:"ばぶる",short:"実力以上に価格が膨らんだ、危うい状態。",
+   body:"株や不動産などの価格が、本来の価値をはるかに超えて高騰した状態です。泡（バブル）のように、いつか弾けて急落するリスクをはらんでいます。",
+   example:"みんなが熱狂して値段が暴騰→ある日はじけて暴落。過去に何度も繰り返されてきました。"},
+  {cat:"econ",term:"需要と供給",reading:"じゅようときょうきゅう",short:"欲しい量と売る量の関係で、値段が決まる仕組み。",
+   body:"欲しい人（需要）が多くて品物（供給）が少なければ値段は上がり、逆なら下がります。モノの値段や株価、為替など、あらゆる価格の基本ルールです。",
+   example:"人気で品薄なら高くなり、売れ残れば安くなる。値段が動く理由のほとんどがこれです。"},
+  {cat:"econ",term:"国債",reading:"こくさい",short:"国が発行する、借金の証書（債券）。",
+   body:"国がお金を借りるために発行するもので、買った人は満期まで利息を受け取り、期日には元本が戻ります。国が発行元なので、安全性が高いとされます。",
+   example:"国にお金を貸して利息をもらう仕組み。『国にお金を預ける』ような安心感のある債券です。"},
+  {cat:"econ",term:"スタグフレーション",reading:"すたぐふれーしょん",short:"不景気なのに物価が上がる、つらい状態。",
+   body:"景気が悪く給料も上がりにくいのに、物価だけが上昇する厳しい状況です。家計の負担が二重になるため、経済にとって特にやっかいな状態とされます。",
+   example:"収入は増えないのに食品や光熱費は上がる…という、生活がいちばん苦しくなるパターンです。"},
+
+  {cat:"econ",term:"リーマンショック",reading:"りーまんしょっく",short:"2008年に世界へ広がった、歴史的な金融危機。",
+   body:"米国の大手金融機関の破綻をきっかけに、世界中の株価が暴落した出来事です。『暴落』『金融危機』の代表例として、今も投資の教訓として語られます。",
+   example:"株価が世界的に大暴落した出来事。『あの時に買えた人は…』と語り草になっています。"},
+  {cat:"econ",term:"金融緩和・金融引き締め",reading:"きんゆうかんわ・ひきしめ",short:"お金を回しやすく・しにくくして景気を調整する政策。",
+   body:"緩和は金利を下げてお金を借りやすくし景気を刺激すること、引き締めはその逆で過熱を抑えることです。日銀がアクセルとブレーキを踏み分けるイメージです。",
+   example:"『緩和』で世の中にお金が増え、『引き締め』で抑える。株価や為替にも大きく影響します。"},
+  {cat:"econ",term:"ビッグマック指数",reading:"びっぐまっくしすう",short:"ハンバーガーの値段で各国の物価を比べる面白い指標。",
+   body:"世界各国のビッグマックの価格を比べて、通貨の価値や物価の高さをはかるユニークな指標です。むずかしい為替を、身近な商品で直感的に理解できます。",
+   example:"『日本のビッグマックは海外より安い』＝円の購買力が低い、と読み解けるわけです。"},
+  {cat:"econ",term:"完全失業率",reading:"かんぜんしつぎょうりつ",short:"働きたい人のうち、職に就けていない人の割合。",
+   body:"働く意思があるのに仕事に就けていない人の割合で、景気の良し悪しを示す代表的な指標です。低いほど景気が良く、高いほど不景気の傾向とされます。",
+   example:"この数字が上がると『不景気のサイン』。ニュースの景気判断によく使われます。"},
+  {cat:"econ",term:"マクロ経済・ミクロ経済",reading:"まくろ・みくろけいざい",short:"国全体で見るか、個人・企業で見るかの視点の違い。",
+   body:"マクロは国や世界全体のお金の動き(景気・物価など)、ミクロは個々の家計や企業の動きを見る考え方です。経済ニュースを読み解く、2つの視点です。",
+   example:"『国全体の景気』がマクロ、『1つの会社や家計』がミクロ。見る範囲の違いです。"},
+
+  // ---------- 税金・制度 ----------
+  {cat:"tax",term:"所得控除",reading:"しょとくこうじょ",short:"税金の計算前に、所得から差し引いてもらえる金額。",
+   body:"扶養している家族や、支払った保険料などに応じて所得を減らせる仕組みです。所得が減れば、それにかかる税金も減ります。種類が多く、知らないと損することも。",
+   example:"年収から先にいくらか『なかったこと』にして計算するので、その分だけ税金が安くなります。"},
+  {cat:"tax",term:"確定申告",reading:"かくていしんこく",short:"1年間の所得と税金を自分で計算して国に申告する手続き。",
+   body:"フリーランスや副業のある人、医療費が多かった人などが行う、年に一度の精算です。払いすぎた税金が戻ってくる(還付)こともあります。",
+   example:"1年間のお金の『総決算』。やると医療費控除などで税金が戻ってくるケースもあります。"},
+  {cat:"tax",term:"源泉徴収",reading:"げんせんちょうしゅう",short:"給料から、税金が先に天引きされる仕組み。",
+   body:"会社が従業員の代わりに、給料からあらかじめ所得税を差し引いて国に納める制度です。だから多くの会社員は、自分で確定申告をしなくて済みます。",
+   example:"給与明細の『所得税』の欄。受け取る前にお店側が代わりに納めてくれているイメージです。"},
+  {cat:"tax",term:"社会保険料",reading:"しゃかいほけんりょう",short:"医療・年金・介護などのために毎月払うお金。",
+   body:"健康保険・厚生年金・雇用保険などの保険料の総称です。給料から天引きされ、病気の時の医療費負担を軽くしたり、将来の年金につながったりします。",
+   example:"病院で3割負担で済むのも、将来年金がもらえるのも、毎月のこの支払いのおかげです。"},
+  {cat:"tax",term:"累進課税",reading:"るいしんかぜい",short:"稼ぎが多い人ほど、高い税率がかかる仕組み。",
+   body:"所得が高くなるほど、段階的に税率が上がっていく方式です。日本の所得税はこの方式で、収入が多い人がより多く負担するように設計されています。",
+   example:"所得が増えると階段を上るように税率もアップ。だから節税(控除)の知識が効いてきます。"},
+  {cat:"tax",term:"年末調整",reading:"ねんまつちょうせい",short:"会社が年末に、税金の払いすぎ・不足を精算する手続き。",
+   body:"毎月天引きされた所得税は『おおよその金額』。年末に正確に計算し直し、払いすぎていれば戻り、足りなければ追加で引かれます。多くは12月の給料で精算されます。",
+   example:"12月に『少し多く戻ってきた』のは、これまで多めに払っていた税金の返金分です。"},
+  {cat:"tax",term:"所得税",reading:"しょとくぜい",short:"個人の1年間の所得（もうけ）にかかる国の税金。",
+   body:"給料や事業のもうけなど、稼いだ金額に応じてかかる代表的な税金です。稼ぎが多いほど税率が上がる累進課税で、各種の控除を使うと安くできます。",
+   example:"収入そのものではなく、経費や控除を引いた『もうけ』に対してかかるのがポイントです。"},
+  {cat:"tax",term:"住民税",reading:"じゅうみんぜい",short:"住んでいる都道府県・市区町村に納める税金。",
+   body:"前年の所得をもとに計算され、地域の行政サービスに使われます。所得税と違い『前年分を翌年に払う』ため、退職や転職の年は支払い時期に注意が必要です。",
+   example:"去年の収入に対して今年払う仕組み。収入が減った年でも前年分の請求が来るので要注意です。"},
+  {cat:"tax",term:"消費税",reading:"しょうひぜい",short:"買い物やサービスの利用時に払う税金。",
+   body:"商品やサービスを買うたびに価格に上乗せして払う、最も身近な税金です。お店が代わりに集めて国に納めています。食品など一部は軽減税率の対象です。",
+   example:"レシートの『消費税◯円』がそれ。私たちが払い、お店が代わりに国へ納めています。"},
+  {cat:"tax",term:"医療費控除",reading:"いりょうひこうじょ",short:"1年の医療費が多い年に、税金が戻る制度。",
+   body:"家族分を合わせて年間の医療費が一定額（目安10万円）を超えると、その分だけ所得を減らせて税金が戻ります。確定申告をすると受けられます。",
+   example:"出産や入院で医療費がかさんだ年は、申告すれば払いすぎた税金が戻ってくることがあります。"},
+  {cat:"tax",term:"扶養控除",reading:"ふようこうじょ",short:"養う家族がいると、税金が安くなる控除。",
+   body:"収入の少ない子どもや親などを養っている場合に、所得を差し引いてもらえる制度です。扶養する家族の年齢などによって控除額が変わります。",
+   example:"学生の子どもや収入の少ない親を養っていると、その分あなたの税金が軽くなります。"},
+  {cat:"tax",term:"基礎控除",reading:"きそこうじょ",short:"ほぼ誰もが受けられる、基本の所得控除。",
+   body:"所得がある人なら原則だれでも差し引ける、ベースとなる控除です。最低限の生活費には課税しない、という考え方にもとづいています。",
+   example:"特別な手続きなしで誰でも受けられる『全員共通の割引』のような控除です。"},
+  {cat:"tax",term:"課税所得",reading:"かぜいしょとく",short:"税率をかける対象になる、控除後の所得。",
+   body:"収入から経費や各種控除をすべて引いた、最終的に税金の計算対象となる金額です。この数字が小さいほど、納める税金も少なくなります。",
+   example:"『収入−経費−控除＝課税所得』。控除を増やすほど、ここが減って節税になります。"},
+  {cat:"tax",term:"特定口座（源泉徴収あり）",reading:"とくていこうざ",short:"証券会社が税金の計算・納付までしてくれる口座。",
+   body:"投資の利益にかかる税金を、証券会社が自動で計算して納めてくれる口座です。原則として自分で確定申告をする必要がなく、初心者に最もおすすめです。",
+   example:"利益が出ても面倒な税金手続きは証券会社まかせ。投資デビューはこの口座が定番です。"},
+  {cat:"tax",term:"損益通算",reading:"そんえきつうさん",short:"投資の利益と損失を相殺して、税金を減らす仕組み。",
+   body:"ある投資で出た利益から、別の投資で出た損失を差し引くことができます。利益にかかる税金を、損失の分だけ減らせるのがメリットです。",
+   example:"Aで10万円の利益、Bで4万円の損なら、差し引き6万円分にだけ課税。税金が軽くなります。"},
+  {cat:"tax",term:"譲渡所得",reading:"じょうとしょとく",short:"株や不動産などを売って得た利益にかかる所得。",
+   body:"持っていた資産を売って得たもうけのことです。株や投資信託の売却益などが代表例で、利益に対して約20%の税金がかかります（NISAなら非課税）。",
+   example:"100万円で買った株を130万円で売れば、利益の30万円が譲渡所得。ここに税金がかかります。"},
+  {cat:"tax",term:"贈与税",reading:"ぞうよぜい",short:"個人からお金や物をもらった時にかかる税金。",
+   body:"親など個人から財産をもらった場合にかかる税金です。年間110万円までは非課税のため、この枠を使ってコツコツ贈与する人も多くいます。",
+   example:"親から年110万円までの援助なら税金ゼロ。それを超えた分に贈与税がかかります。"},
+  {cat:"tax",term:"相続税",reading:"そうぞくぜい",short:"亡くなった人の財産を受け継いだ時にかかる税金。",
+   body:"遺産を相続した時にかかる税金ですが、大きな基礎控除があるため、多くの家庭ではかかりません。財産が一定額を超える場合に申告・納税が必要になります。",
+   example:"遺産には『◯千万円までは非課税』の枠があり、それを超えた分にだけ相続税がかかります。"},
+  {cat:"tax",term:"青色申告",reading:"あおいろしんこく",short:"きちんと帳簿をつける代わりに節税できる申告方法。",
+   body:"フリーランスや個人事業主が、決められた方法で帳簿をつけて申告すると、最大65万円の控除など手厚い特典が受けられます。手間の分だけ得をする制度です。",
+   example:"しっかり記帳すれば最大65万円の控除。副業や独立をする人には大きな味方になります。"},
+  {cat:"tax",term:"雑所得",reading:"ざつしょとく",short:"どの区分にも入らない、その他の所得のまとめ枠。",
+   body:"副業の収入や年金、暗号資産のもうけなど、給与所得や事業所得などに当てはまらない所得のまとめ枠です。副業をする人は確定申告で関わることが多い区分です。",
+   example:"副業やフリマの利益などが該当。一定額を超えたら確定申告が必要になります。"},
+  {cat:"tax",term:"税額控除",reading:"ぜいがくこうじょ",short:"計算した税金から、直接差し引ける割引。",
+   body:"所得控除が『税金の計算前』に所得を減らすのに対し、税額控除は『計算後の税金そのもの』から直接引きます。同じ金額なら、減税効果は税額控除の方が大きいです。",
+   example:"住宅ローン控除が代表例。税金から直接引かれるので、効き目がダイレクトです。"},
+  {cat:"tax",term:"退職所得",reading:"たいしょくしょとく",short:"退職金にかかる、税優遇の手厚い所得。",
+   body:"会社を辞める時に受け取る退職金などの所得です。長年の勤労に報いるため大きな控除があり、税金がかなり軽くなるよう配慮されています。",
+   example:"まとまった退職金にも、手厚い控除のおかげで税金は意外と少なく済みます。"},
+
+  // ========== 投資・資産運用（追加） ==========
+  {cat:"invest",term:"アセットアロケーション",reading:"あせっとあろけーしょん",short:"資産を何にどんな割合で配分するか、の設計図。",
+   body:"株・債券・現金などに、どんな比率で資産を振り分けるかを決めることです。運用の成果の大部分は、この配分で決まるとも言われる重要な土台です。",
+   example:"『株6:債券3:現金1』のように先に方針を決めること。商品選びより先にやる作業です。"},
+  {cat:"invest",term:"オルタナティブ投資",reading:"おるたなてぃぶとうし",short:"株や債券以外の、ちょっと変わった投資先。",
+   body:"不動産・金(きん)・コモディティ(商品)など、伝統的な株や債券とは違う値動きをする投資先です。分散の幅を広げる目的で組み合わせることがあります。",
+   example:"株が下がっても金は上がる、というように『別の動き』をするものを足してリスク分散します。"},
+  {cat:"invest",term:"大型株・小型株",reading:"おおがたかぶ・こがたかぶ",short:"会社の規模(時価総額)による株の分け方。",
+   body:"大型株は規模が大きく安定した会社、小型株はこれから伸びる余地のある小さめの会社の株です。大型は安定、小型は値動きが大きい傾向があります。",
+   example:"大型は『安定の大企業』、小型は『化けるかもの伸びしろ株』。性格が大きく違います。"},
+  {cat:"invest",term:"インサイダー取引",reading:"いんさいだーとりひき",short:"未公開の重要情報を使った、禁止されている取引。",
+   body:"会社の関係者などが、まだ公表されていない情報を使って株を売買することです。不公平なため法律で固く禁止されており、重い罰則の対象になります。",
+   example:"『この発表で株が上がる』と社内で先に知って買う行為。完全にアウトな違法行為です。"},
+  {cat:"invest",term:"アノマリー",reading:"あのまりー",short:"理由は不明だけど、なぜか当たりがちな経験則。",
+   body:"理論では説明しにくいのに、過去の傾向としてよく当たる相場のクセのことです。『◯月は上がりやすい』など。あくまで経験則で、絶対ではありません。",
+   example:"『1月は株が上がりやすい』などのジンクス。参考程度に、過信は禁物です。"},
+  {cat:"invest",term:"青天井",reading:"あおてんじょう",short:"上限がなく、どこまでも上がっていきそうな状態。",
+   body:"株価などが天井(上限)知らずで上がり続ける勢いを表す言葉です。期待が高い反面、行き過ぎるとバブルや急落の前ぶれになることもあります。",
+   example:"『この株は青天井だ』＝まだまだ上がりそう、という強気ムードを表します。"},
+  {cat:"invest",term:"アウトパフォーム・アンダーパフォーム",reading:"あうとぱふぉーむ",short:"市場平均を上回る・下回ること。",
+   body:"運用成績が、日経平均などの基準(ベンチマーク)より良ければアウトパフォーム、悪ければアンダーパフォームと言います。成績を測る時の表現です。",
+   example:"市場が＋5%の年に＋8%なら『アウトパフォーム』。平均に勝った、ということです。"},
+  {cat:"invest",term:"ベンチマーク",reading:"べんちまーく",short:"運用成績を比べるための、基準となる指標。",
+   body:"投資信託などが『目標・物差し』にする指数のことです。日経平均やS&P500などが使われ、これを上回れたかどうかで運用の良し悪しを判断します。",
+   example:"テストの平均点のような存在。これを超えられたかで、運用の腕前がわかります。"},
+  {cat:"invest",term:"ヘッジファンド",reading:"へっじふぁんど",short:"あらゆる手法で利益を狙う、富裕層向けの運用。",
+   body:"相場が上がっても下がっても利益を狙うことを目指す、特殊な運用ファンドです。手法が高度で手数料も高く、主に富裕層や機関投資家が対象です。",
+   example:"一般的な投信とは別世界の、プロ中のプロ向け。個人が直接買う機会はほぼありません。"},
+  {cat:"invest",term:"デリバティブ",reading:"でりばてぃぶ",short:"株や為替などから派生した、応用的な金融商品。",
+   body:"先物やオプションなど、もとになる資産の値動きを利用して作られた金融商品の総称です。リスクを抑える用途もありますが、使い方を誤ると大損の元にもなります。",
+   example:"『派生商品』とも呼ばれる応用編。仕組みが複雑なので、初心者はまず近づかないのが安全です。"},
+  {cat:"invest",term:"インバース型",reading:"いんばーすがた",short:"相場が下がると利益が出る、逆向きの商品。",
+   body:"指数が下がると価格が上がるように作られた、値動きが逆の投資商品です。下落局面で利益を狙えますが、仕組みが特殊で長期保有には向きません。",
+   example:"日経平均が下がると儲かる、天邪鬼な商品。短期勝負の上級者向けです。"},
+  {cat:"invest",term:"ESG投資",reading:"いーえすじーとうし",short:"環境・社会・企業統治に配慮した会社へ投資すること。",
+   body:"環境(E)・社会(S)・ガバナンス(G)に真剣に取り組む会社を選んで投資する考え方です。お金を通じて、より良い社会づくりを応援する投資スタイルです。",
+   example:"『儲かるか』だけでなく『社会に良いか』も基準にする、近年広がっている投資の形です。"},
+  {cat:"invest",term:"ファンダメンタルズ",reading:"ふぁんだめんたるず",short:"業績や経済など、価格の土台となる基礎体力。",
+   body:"会社の業績や財務、国の経済状況など、価格を支える本質的な要素のことです。チャートの形を見るテクニカルに対し、中身を分析する考え方です。",
+   example:"『会社の実力そのもの』を見る分析。長期投資ではこちらが重視されます。"},
+
+  {cat:"invest",term:"バランス型ファンド",reading:"ばらんすがたふぁんど",short:"1本で株や債券などに自動で分散してくれる投信。",
+   body:"国内外の株式・債券などをあらかじめ決まった割合で組み合わせた投資信託です。これ1本買うだけでバランスよく分散でき、配分の調整もおまかせ。初心者の定番です。",
+   example:"自分で配分を考えなくても、プロが株・債券などをほどよく混ぜてくれる『お任せ定食』型です。"},
+  {cat:"invest",term:"コモディティ",reading:"こもでぃてぃ",short:"金・原油・穀物などの『商品』への投資。",
+   body:"金(きん)・原油・小麦などの実物商品を指します。株や債券とは違う値動きをすることが多く、インフレに強い分散先として組み合わせられることがあります。",
+   example:"『金は有事に強い』などと言われるのがこれ。株が不調な時の保険役にもなります。"},
+  {cat:"invest",term:"スイッチング",reading:"すいっちんぐ",short:"今持っている商品を、別の商品に乗り換えること。",
+   body:"保有中の投資信託を売って、別の投資信託に買い替えることです。特にiDeCoや企業型DCの中で配分を見直す時によく使う操作で、運用方針の調整に役立ちます。",
+   example:"iDeCoで『株式型を減らして安定型に変える』といった乗り換えが、まさにスイッチングです。"},
+  {cat:"invest",term:"信託財産留保額",reading:"しんたくざいさんりゅうほがく",short:"投資信託を解約する時に差し引かれることがある費用。",
+   body:"投信を途中で解約する際、残る投資家への影響を抑えるために差し引かれることがある費用です。かからない商品も多く、購入前に目論見書で確認しておくと安心です。",
+   example:"解約時の『出口の手数料』のようなもの。ゼロの商品も多いので、事前チェックが大切です。"},
+  {cat:"invest",term:"トータルリターン",reading:"とーたるりたーん",short:"値上がり益と分配金などを合わせた、全体の損益。",
+   body:"投資信託で、価格の値上がり益だけでなく、受け取った分配金も含めて計算した総合的な損益です。分配金の多さだけに惑わされず、本当の成績を見るための数字です。",
+   example:"『分配金がたくさん出てるのに損してた』を防ぐ指標。トータルで増えたかが大事です。"},
+  {cat:"invest",term:"テーマ型投資",reading:"てーまがたとうし",short:"AI・環境など、話題のテーマに絞って投資すること。",
+   body:"特定の流行テーマに関連する企業をまとめて買う投資信託などです。話題性で人気ですが、ブームが去ると下がりやすく、手数料も高めなことが多い点に注意が必要です。",
+   example:"『AI関連』『脱炭素』などに集中投資する商品。流行の波に乗る分、外すと痛いタイプです。"},
+  {cat:"invest",term:"運用報告書",reading:"うんようほうこくしょ",short:"投資信託の運用成績や中身を知らせてくれる書類。",
+   body:"保有している投資信託が、どんな運用をして成績がどうだったかを定期的に知らせる書類です。コストや投資先の変化を確認でき、見直しの判断材料になります。",
+   example:"投信の『定期通知表』。届いたら成績やコストにサッと目を通す習慣をつけると安心です。"},
+
+  {cat:"invest",term:"単利",reading:"たんり",short:"最初の元本にだけ、利息がつく計算方法。",
+   body:"利息を元本に組み入れず、いつも最初のお金に対してだけ利息がつく計算です。増えた利益にも利息がつく『複利』に比べ、長期では差が大きく開きます。",
+   example:"100万円が単利3%なら毎年3万円ずつ。複利と違い、増え方は一定のままです。"},
+  {cat:"invest",term:"個人向け国債",reading:"こじんむけこくさい",short:"国が個人向けに発行する、安全性の高い債券。",
+   body:"1万円から買える、国にお金を貸す商品です。元本割れせず、最低金利も保証されているため、預金の次のステップとして初心者にも選ばれやすい安全な投資先です。",
+   example:"『元本割れはイヤだけど預金よりは…』という人の最初の一歩に向く、堅実な商品です。"},
+  {cat:"invest",term:"ポイント投資",reading:"ぽいんととうし",short:"買い物で貯めたポイントで投資できる仕組み。",
+   body:"現金の代わりに、貯まったポイントを使って投資信託などを買える仕組みです。自分の現金を使わずに始められるため、投資デビューのハードルをぐっと下げてくれます。",
+   example:"余ったポイントでお試し投資。『ポイ活』の延長で、こわくなく始められます。"},
+  {cat:"invest",term:"格付け",reading:"かくづけ",short:"債券などの『返済の安全度』を記号で示したランク。",
+   body:"国や会社がお金をきちんと返せるかを、専門機関がAAA(トリプルエー)などの記号で評価したものです。高いほど安全で、低いほどリスクが高く金利も高めになります。",
+   example:"『AAA』なら超安全、低い格付けほど危険。債券選びの安全度チェックに使います。"},
+  {cat:"invest",term:"信用リスク",reading:"しんようりすく",short:"貸したお金が返ってこなくなる恐れのこと。",
+   body:"債券などで、発行した国や会社が経営難に陥り、利息や元本が予定どおり返ってこなくなる危険性です。格付けが低いほど、この信用リスクは高くなります。",
+   example:"高い利息の債券ほど『返ってこないかも』の裏返し。うまい話ほどリスクも要チェックです。"},
+  {cat:"invest",term:"カントリーリスク",reading:"かんとりーりすく",short:"その国の政治や経済の事情で、資産価値が変わるリスク。",
+   body:"投資先の国の政情不安や経済混乱などで、株や債券の価値が下がる危険性です。特に新興国への投資では、このカントリーリスクが大きくなりがちです。",
+   example:"国の混乱で通貨や株が暴落…ということも。海外投資では国そのものの安定度も大事です。"},
+  {cat:"invest",term:"ライフサイクルファンド",reading:"らいふさいくるふぁんど",short:"年齢に合わせ、配分が自動で変わっていく投信。",
+   body:"若いうちは株多めで攻め、年を取るにつれ債券中心の安定型へと、配分が自動で切り替わる投資信託です。『ターゲットイヤー型』とも呼ばれ、ほったらかし派に向きます。",
+   example:"歳を重ねるほど自動で安全運転に。自分で調整しなくていい『おまかせ年金づくり』型です。"},
+
+  // ========== 企業・財務 ==========
+  {cat:"corp",term:"売上総利益（粗利）",reading:"うりあげそうりえき",short:"売上から原価を引いた、いちばん基本のもうけ。",
+   body:"商品の売上から、その仕入れや製造にかかった原価を引いた利益です。『粗利(あらり)』とも呼ばれ、その商品自体がどれだけ儲かるかを表します。",
+   example:"100円で仕入れ150円で売れば、粗利は50円。商売の元になるもうけです。"},
+  {cat:"corp",term:"営業利益",reading:"えいぎょうりえき",short:"本業でどれだけ稼いだかを示す利益。",
+   body:"粗利から、人件費や広告費などの経費を引いた利益です。会社の『本業の実力』を最もよく表す数字として、決算で特に注目されます。",
+   example:"本業のもうけそのもの。ここが伸びていれば、商売がうまくいっているサインです。"},
+  {cat:"corp",term:"経常利益",reading:"けいじょうりえき",short:"本業＋財務など、通常の活動全体のもうけ。",
+   body:"営業利益に、利息や為替など本業以外の通常的な損益を加えた利益です。会社の総合的な稼ぐ力を示し、『けいつね』とも呼ばれます。",
+   example:"本業のもうけに、借入の利息や投資の損益まで含めた『ふだんの総合成績』です。"},
+  {cat:"corp",term:"純利益（当期純利益）",reading:"じゅんりえき",short:"税金まで引いた後の、最終的に残るもうけ。",
+   body:"すべての収益から、経費・税金などを差し引いて最後に残る利益です。会社の『手取り』にあたり、配当の原資にもなる最も重要な数字の一つです。",
+   example:"いろいろ引いた後に手元に残る、いわば会社の『手取り収入』です。"},
+  {cat:"corp",term:"損益計算書（P/L）",reading:"そんえきけいさんしょ",short:"1年でいくら稼ぎ、いくら使ったかの成績表。",
+   body:"一定期間の売上・経費・利益をまとめた書類です。会社がもうかっているか赤字かが分かる、決算書の代表格。『ピーエル』と呼ばれます。",
+   example:"会社の『1年間の家計簿』。収入と支出、最終的なもうけが一目でわかります。"},
+  {cat:"corp",term:"貸借対照表（バランスシート）",reading:"たいしゃくたいしょうひょう",short:"会社の財産と借金の状態を写したスナップ写真。",
+   body:"ある時点で会社が『何を持ち(資産)・いくら借りていて(負債)・元手はいくらか(純資産)』を示す書類です。会社の体力や安全性が読み取れます。",
+   example:"会社の『財産目録』。貯金が多いか借金が多いか、健康診断のように分かります。"},
+  {cat:"corp",term:"キャッシュフロー計算書",reading:"きゃっしゅふろーけいさんしょ",short:"現金が実際にどれだけ増減したかを示す書類。",
+   body:"会社のお金(現金)の出入りをまとめた書類です。利益が出ていても現金が足りないと倒産するため、リアルなお金の流れを見る重要な資料です。",
+   example:"帳簿上のもうけと別に『財布の中身が増えたか』を見る書類。黒字倒産を見抜く鍵です。"},
+  {cat:"corp",term:"自己資本（純資産）",reading:"じこしほん",short:"返す必要のない、会社自身のお金。",
+   body:"株主が出したお金や、これまで稼いで貯めた利益など、会社が自由に使える返済不要の元手です。これが厚いほど、会社の経営は安定しています。",
+   example:"借金ではない『自分のお金』。多いほど、不景気にも倒れにくい丈夫な会社です。"},
+  {cat:"corp",term:"自己資本比率",reading:"じこしほんひりつ",short:"全財産のうち、返済不要のお金が占める割合。",
+   body:"会社の総資産のうち、自己資本がどれくらいかを示す数字です。高いほど借金に頼らない安全な経営とされ、会社の安定度をはかる定番の指標です。",
+   example:"この比率が高い会社＝借金が少なく財務が健全。倒産しにくい安心の目安です。"},
+  {cat:"corp",term:"内部留保",reading:"ないぶりゅうほ",short:"会社が稼いで社内にためてきた利益の蓄え。",
+   body:"利益のうち、配当などで外に出さずに会社にためてきたお金です。将来の投資やもしもの時の備えになりますが、ためすぎを批判されることもあります。",
+   example:"会社の『貯金』。多いと安心な反面、『使わず眠らせすぎ』と言われることも。"},
+  {cat:"corp",term:"EPS",reading:"いーぴーえす",short:"1株あたり、いくら利益を稼いだかを示す数字。",
+   body:"1株あたり純利益のこと。会社の利益を株数で割ったもので、1株がどれだけ稼いだかを表します。伸びていれば、稼ぐ力が成長しているサインです。",
+   example:"EPSが年々増えている会社＝1株の稼ぐ力が育っている、成長企業の目印です。"},
+  {cat:"corp",term:"配当性向",reading:"はいとうせいこう",short:"利益のうち、何％を配当に回しているかの割合。",
+   body:"会社が稼いだ純利益のうち、どれだけを株主への配当に充てているかを示します。高いと株主還元に積極的、低いと成長への再投資に回している傾向です。",
+   example:"利益の3割を配当に回せば配当性向30%。株主想いかどうかの目安になります。"},
+  {cat:"corp",term:"増配・減配",reading:"ぞうはい・げんぱい",short:"配当を増やすこと・減らすこと。",
+   body:"前回より配当を増やすのが増配、減らすのが減配です。増配は業績好調や株主重視の表れとして好感され、減配は不調のサインとして嫌われやすい傾向があります。",
+   example:"『連続増配』は優良株の証とされ人気。逆に減配は株価が下がる要因になりがちです。"},
+  {cat:"corp",term:"自社株買い",reading:"じしゃかぶがい",short:"会社が自分の株を買い戻す、株主還元の一つ。",
+   body:"会社が市場から自社の株を買い戻すことです。出回る株数が減るため1株の価値が高まりやすく、配当と並ぶ株主への還元策として歓迎されます。",
+   example:"株数が減ってEPSが上がり、株価にプラスになりやすい。『株主への恩返し』の一つです。"},
+  {cat:"corp",term:"株式分割",reading:"かぶしきぶんかつ",short:"1株を分けて、買いやすい値段にすること。",
+   body:"1株を2株などに分割し、1株あたりの値段を下げることです。価値の総額は変わりませんが、少額で買いやすくなり、投資家の裾野が広がります。",
+   example:"1万円の1株を2分割すれば5千円が2株に。総額は同じでも、ぐっと手が届きやすくなります。"},
+  {cat:"corp",term:"株主優待",reading:"かぶぬしゆうたい",short:"株主へのお礼に贈られる、自社商品や割引券など。",
+   body:"会社が株主に向けて、自社製品・割引券・QUOカードなどを贈る日本独特の制度です。配当とは別の楽しみとして、個人投資家に根強い人気があります。",
+   example:"外食チェーンの食事券や、自社商品の詰め合わせなど。配当＋αの『おまけ』です。"},
+  {cat:"corp",term:"株主総会",reading:"かぶぬしそうかい",short:"株主が経営の重要事項を決める、年1回の会議。",
+   body:"会社の方針や役員の選任など、重要なことを株主の投票で決める会議です。株を持っていれば、保有数に応じて議決権(投票する権利)を行使できます。",
+   example:"株主として経営に意見を言える場。持ち株数に応じて『1票』を投じられます。"},
+  {cat:"corp",term:"単元株",reading:"たんげんかぶ",short:"株を売買するときの、基本となるまとまった単位。",
+   body:"株を取引する際の最低単位で、多くは100株です。通常はこの単位で売買しますが、単元未満株(ミニ株)を使えば1株から買うこともできます。",
+   example:"日本株はふつう『100株セット』が基本単位。これが単元株です。"},
+  {cat:"corp",term:"上場・非上場",reading:"じょうじょう・ひじょうじょう",short:"株を市場で誰でも売買できる会社か、できない会社か。",
+   body:"上場は証券取引所で株が自由に売買できる状態、非上場はできない状態です。上場には厳しい審査があり、上場企業は社会的信用が高まります。",
+   example:"上場企業の株は誰でも買えますが、非上場(未上場)の会社の株は基本買えません。"},
+  {cat:"corp",term:"TOB（株式公開買付け）",reading:"てぃーおーびー",short:"株を大量に買い集めるための、公開での買付け。",
+   body:"ある会社の経営権を得るため、『この値段で買います』と公に宣言して株を集める手法です。買収や子会社化の場面で使われ、株価が動く材料になります。",
+   example:"『1株◯円で買い取ります』と公表して株を集める方法。買収のニュースでよく登場します。"},
+  {cat:"corp",term:"M&A",reading:"えむあんどえー",short:"会社の合併や買収のこと。",
+   body:"企業どうしが一つになったり(合併)、ある会社が別の会社を買ったり(買収)することです。事業拡大や後継者問題の解決など、さまざまな目的で行われます。",
+   example:"『A社がB社を買収』のようなニュースがこれ。関係する会社の株価が大きく動きます。"},
+  {cat:"corp",term:"決算・決算短信",reading:"けっさん・けっさんたんしん",short:"一定期間の業績をまとめて発表すること・その速報。",
+   body:"会社が売上や利益などの成績をまとめて公表することを決算といい、その速報版が決算短信です。内容次第で株価が大きく動く、注目のイベントです。",
+   example:"会社の『成績発表』。予想より良いか悪いかで、株価がドンと動きます。"},
+  {cat:"corp",term:"粉飾決算",reading:"ふんしょくけっさん",short:"業績を実際より良く見せる、ウソの決算。",
+   body:"売上や利益を水増しするなど、会社の成績を偽って良く見せる不正行為です。投資家をだます重大な違法行為で、発覚すると信用も株価も大きく崩れます。",
+   example:"赤字を黒字に見せかけるなどの粉飾。バレた瞬間、株価は急落し信用は地に落ちます。"},
+  {cat:"corp",term:"ストックオプション",reading:"すとっくおぷしょん",short:"自社株を決めた値段で買える、社員へのごほうび。",
+   body:"会社が役員や社員に与える、『将来この値段で自社株を買える権利』です。株価が上がるほど得をするため、会社の成長を頑張る動機づけになります。",
+   example:"頑張って株価を上げれば自分も得をする仕組み。スタートアップでよく使われます。"},
+
+  // ========== チャート・売買 ==========
+  {cat:"chart",term:"ローソク足",reading:"ろうそくあし",short:"1日などの値動きを、1本の棒で表したチャート。",
+   body:"始値・終値・高値・安値の4つを、ローソクの形で表したグラフです。上がった日と下がった日が色で分かり、相場の流れを読む基本の道具になります。",
+   example:"1本で『その日いくらで始まり、いくらで終わったか』が分かる、チャートの基本パーツです。"},
+  {cat:"chart",term:"移動平均線",reading:"いどうへいきんせん",short:"一定期間の平均値をつないだ、流れを見る線。",
+   body:"過去◯日間の平均価格を結んだ線で、ギザギザな値動きをならして大きな流れ(トレンド)をつかみやすくします。テクニカル分析の超基本です。",
+   example:"日々の上下を平らにならした線。上向きなら上昇トレンド、と流れが読めます。"},
+  {cat:"chart",term:"ゴールデンクロス・デッドクロス",reading:"ごーるでんくろす",short:"2本の線が交差して出る、買い・売りのサイン。",
+   body:"短期の移動平均線が長期の線を下から上に抜けるのがゴールデンクロス(買いサイン)、上から下に抜けるのがデッドクロス(売りサイン)とされます。",
+   example:"線が下から上にクロス＝上昇の合図、上から下＝下落の合図、と読むのが定番です。"},
+  {cat:"chart",term:"ボリンジャーバンド",reading:"ぼりんじゃーばんど",short:"価格の振れ幅の目安を帯で示すテクニカル指標。",
+   body:"価格がだいたいこの範囲に収まる、という幅を帯(バンド)で表した指標です。帯からはみ出すと『行き過ぎ』のサインと見る、人気の分析ツールです。",
+   example:"帯の上限に近づけば買われすぎ、下限なら売られすぎ、と判断する目安になります。"},
+  {cat:"chart",term:"一目均衡表",reading:"いちもくきんこうひょう",short:"複数の線と雲で相場を読む、日本生まれの指標。",
+   body:"5本の線と『雲』と呼ばれる帯で、相場の方向や強さ、転換点を一目で読もうとする日本発のテクニカル指標です。世界中で使われています。",
+   example:"価格が『雲』の上なら強い、下なら弱い、と判断する独特の分析手法です。"},
+  {cat:"chart",term:"RSI",reading:"あーるえすあい",short:"買われすぎ・売られすぎを％で示す指標。",
+   body:"価格の勢いを0〜100%で表す指標です。一般に70%以上で買われすぎ、30%以下で売られすぎとされ、相場の反転の目安として使われます。",
+   example:"70%超は『上がりすぎ、そろそろ反落かも』のサイン。逆張りの参考にされます。"},
+  {cat:"chart",term:"MACD",reading:"まっくでぃー",short:"トレンドの転換を見つける、定番のテクニカル指標。",
+   body:"2本の線の動きから、相場の流れの強さや変わり目をつかむ指標です。線の交差が売買サインとされ、移動平均線と並んでよく使われます。",
+   example:"2本の線がクロスしたタイミングを、買い時・売り時の目安として使います。"},
+  {cat:"chart",term:"出来高",reading:"できだか",short:"その期間に売買が成立した株数。人気のバロメーター。",
+   body:"一定期間にどれだけ売買が成立したかを示す量です。出来高が急増する時は注目が集まっている証拠で、価格が大きく動くきっかけになりやすいです。",
+   example:"出来高が急に増えた銘柄＝今みんなが注目中。値動きが激しくなりやすいサインです。"},
+  {cat:"chart",term:"順張り・逆張り",reading:"じゅんばり・ぎゃくばり",short:"流れに乗るか、流れに逆らうか、の2つの戦略。",
+   body:"上昇中に買う(流れに乗る)のが順張り、下落中に買う(反発を狙う)のが逆張りです。順張りは安心感、逆張りは安く買える魅力があり、性格で向き不向きが出ます。",
+   example:"『上がってるから買う』が順張り、『下がったから今だ』が逆張り。真逆の発想です。"},
+  {cat:"chart",term:"押し目買い",reading:"おしめがい",short:"上昇中の一時的な下げを狙って買うこと。",
+   body:"全体としては上がっている相場で、途中の一時的な下げ(押し目)を待って買う手法です。少しでも安く仕込みたい時の、順張りの基本テクニックです。",
+   example:"右肩上がりの途中のちょい下げを狙う。『押し目待ちに押し目なし』という格言もあります。"},
+  {cat:"chart",term:"高値づかみ",reading:"たかねづかみ",short:"値段が高い時に買ってしまい、損する失敗。",
+   body:"勢いにつられて価格がピークの時に買ってしまい、その後の下落で損をすることです。初心者が陥りやすい代表的な失敗パターンの一つです。",
+   example:"『話題だから』と飛びついた直後に急落…という典型的な失敗。冷静さが大切です。"},
+  {cat:"chart",term:"4本値（始値・高値・安値・終値）",reading:"よんほんね",short:"その期間の値動きを表す、4つの基本の価格。",
+   body:"始値(始まりの値段)・高値(最高値)・安値(最安値)・終値(終わりの値段)の4つです。ローソク足はこの4本値から作られ、相場分析の出発点になります。",
+   example:"『今日は高く始まり安く終わった』など、1日の動きをこの4つで言い表します。"},
+  {cat:"chart",term:"指値・成行",reading:"さしね・なりゆき",short:"値段を指定して買うか、今すぐ買うかの注文方法。",
+   body:"指値は『◯円で買う(売る)』と値段を決める注文、成行は値段を問わず今すぐ成立させる注文です。指値は希望価格、成行はスピード優先の使い分けです。",
+   example:"『100円になったら買う』が指値、『いくらでもいいから今すぐ』が成行です。"},
+  {cat:"chart",term:"約定・受渡日",reading:"やくじょう・うけわたしび",short:"売買が成立すること・お金と株が実際に動く日。",
+   body:"注文が成立することを約定(やくじょう)といい、その後お金や株が実際に受け渡される日が受渡日です。約定から数営業日後に決済される仕組みです。",
+   example:"『売買成立=約定』、その数日後に実際に精算されるのが受渡日、という流れです。"},
+  {cat:"chart",term:"ストップ高・ストップ安",reading:"すとっぷだか・すとっぷやす",short:"1日の値動きの上限・下限まで動いた状態。",
+   body:"株価が急変しすぎないよう、1日に動ける幅には上限・下限があります。その上限まで上がるのがストップ高、下限まで下がるのがストップ安です。",
+   example:"好材料で買いが殺到するとストップ高。それ以上はその日は上がれない、という上限です。"},
+  {cat:"chart",term:"信用取引",reading:"しんようとりひき",short:"資金や株を借りて、手持ち以上の取引をすること。",
+   body:"証券会社にお金や株を借りて、自己資金の数倍の売買ができる仕組みです。利益も損も大きくなり、空売りも可能になりますが、リスクが高い上級者向けです。",
+   example:"手持ち30万円で約90万円分の取引も。儲けも損も膨らむため、初心者は手控えが無難です。"},
+  {cat:"chart",term:"空売り",reading:"からうり",short:"株を借りて先に売り、値下がりで利益を狙う手法。",
+   body:"持っていない株を借りて売り、値下がりしたところで買い戻して返す取引です。下落局面でも利益を狙えますが、予想が外れて上がると損失が膨らみます。",
+   example:"『高い時に売って、安い時に買い戻す』を逆順で行う技。下げ相場で使う上級テクです。"},
+  {cat:"chart",term:"先物取引",reading:"さきものとりひき",short:"将来の決まった日に、決めた値段で売買する約束。",
+   body:"あらかじめ決めた価格で、将来売買することを約束する取引です。価格変動に備える目的もありますが、レバレッジが効くため値動きが激しく上級者向けです。",
+   example:"『3か月後にこの値段で買う』と先に約束する取引。プロのリスク管理にも使われます。"},
+  {cat:"chart",term:"オプション取引",reading:"おぷしょんとりひき",short:"売買する『権利』そのものを取引する仕組み。",
+   body:"決めた値段で買う(売る)権利を売買する取引です。権利を使うかは自由なため損を限定できますが、仕組みが複雑で、初心者には難しい上級商品です。",
+   example:"『買う権利』を少額で確保しておくイメージ。仕組みが難しく、まずは知識だけでOKです。"},
+  {cat:"chart",term:"デイトレード",reading:"でいとれーど",short:"1日のうちに売買を完結させる、短期の取引。",
+   body:"買った株をその日のうちに売り切る、超短期の取引スタイルです。小さな値動きで利益を積む手法ですが、時間と集中力を要し、初心者にはハードです。",
+   example:"『朝買って夕方までに売る』を繰り返すスタイル。長期コツコツ投資とは正反対です。"},
+  {cat:"chart",term:"スイングトレード",reading:"すいんぐとれーど",short:"数日〜数週間で売買する、中くらいの短期取引。",
+   body:"数日から数週間ほど持って、価格の波(スイング)で利益を狙うスタイルです。デイトレほど忙しくなく、長期投資ほどのんびりでもない中間のやり方です。",
+   example:"『1〜2週間の値上がりを狙って売買』。仕事をしながらでも比較的やりやすい短期手法です。"},
+  {cat:"chart",term:"ロスカット",reading:"ろすかっと",short:"損失拡大を防ぐため、自動・強制的に決済する仕組み。",
+   body:"損が一定以上に膨らんだ時、それ以上の損失を防ぐために強制的に取引を終わらせる仕組みです。信用取引やFXで、資金を守るための安全装置として働きます。",
+   example:"損が膨らみすぎると強制的に手じまい。大ケガを防ぐ『自動ブレーキ』のような仕組みです。"},
+
+  {cat:"chart",term:"FX（外国為替証拠金取引）",reading:"えふえっくす",short:"為替の値動きで利益を狙う、レバレッジ取引。",
+   body:"円やドルなど通貨を売買し、為替レートの差で利益を狙う取引です。手持ち資金の何倍もの取引ができる分、損益が大きく振れる、リスクの高い上級者向けです。",
+   example:"少額で大きく動かせる反面、読みを外すと損も倍増。初心者はまず仕組みの理解からです。"},
+  {cat:"chart",term:"狼狽売り",reading:"ろうばいうり",short:"暴落に慌てて、勢いで売ってしまう失敗。",
+   body:"相場が急落した時、恐怖にかられて冷静さを失い、底値で投げ売りしてしまうことです。その後の回復を取り逃す、初心者が最も陥りやすい失敗パターンの一つです。",
+   example:"暴落で怖くなり売った直後に反発…はあるある。長期投資ほど『慌てない』が鉄則です。"},
+
+  // ========== 経済・市場（追加） ==========
+  {cat:"econ",term:"インバウンド",reading:"いんばうんど",short:"海外から日本に来る旅行客やその消費のこと。",
+   body:"訪日外国人観光客や、その人たちがお金を使うことを指します。インバウンドが増えると、観光・小売・交通などの会社の業績にプラスになります。",
+   example:"外国人観光客が増えて街が賑わうとき、関連企業の株が注目される、という流れです。"},
+  {cat:"econ",term:"失われた20年（30年）",reading:"うしなわれたにじゅうねん",short:"バブル崩壊後、日本経済が長く停滞した時期のこと。",
+   body:"1990年代のバブル崩壊以降、日本の景気や物価、賃金が長く伸び悩んだ期間を指す言葉です。デフレが続いた、日本経済の課題を象徴する表現です。",
+   example:"『給料が何十年も上がらない』と言われる背景がこれ。長い停滞を表す言葉です。"},
+  {cat:"econ",term:"インフレヘッジ",reading:"いんふれへっじ",short:"物価上昇からお金の価値を守る対策のこと。",
+   body:"インフレで現金の価値が目減りするのに備え、株・不動産・金など、物価とともに価値が上がりやすい資産を持つことです。投資が必要とされる理由の一つです。",
+   example:"現金で持つと目減りするので、値上がりに強い資産に換えて守る、という発想です。"},
+  {cat:"econ",term:"景気動向指数",reading:"けいきどうこうしすう",short:"いくつもの指標を合わせ、景気の動きを示す数字。",
+   body:"生産・雇用・消費など複数のデータをまとめ、景気が上向きか下向きかを総合的に判断するための指標です。国が毎月公表しています。",
+   example:"景気の『総合天気予報』のようなもの。いくつもの数字を束ねて方向を示します。"},
+  {cat:"econ",term:"購買力平価",reading:"こうばいりょくへいか",short:"同じ物を買える値段から、適正な為替を考える見方。",
+   body:"同じ商品が各国で同じ値段になるように為替レートは調整される、という考え方です。今のレートが割高か割安かを判断する目安として使われます。",
+   example:"ビッグマック指数もこの考え方の一種。『本来の適正レート』を探るものさしです。"},
+
+  {cat:"econ",term:"直接金融・間接金融",reading:"ちょくせつきんゆう・かんせつきんゆう",short:"お金が世の中を回る、2つのルートのこと。",
+   body:"直接金融は、株や債券を通じて出し手から会社へ直接お金が渡る形。間接金融は、銀行が預金を集めて貸し出す形です。投資は直接金融に参加する行為ともいえます。",
+   example:"銀行経由が間接金融、株や債券で会社へ直接が直接金融。投資は後者への参加です。"},
+
+  // ========== 税金・制度（追加） ==========
+  {cat:"tax",term:"インボイス制度",reading:"いんぼいすせいど",short:"消費税の正確なやり取りのための、新しい請求書ルール。",
+   body:"2023年に始まった、消費税の控除に必要な要件を定めた請求書(インボイス)の制度です。フリーランスや個人事業主の税負担・事務に影響する話題の制度です。",
+   example:"副業や個人事業をする人に関係大。登録するかどうかで税金や手間が変わってきます。"},
+  {cat:"tax",term:"一時所得",reading:"いちじしょとく",short:"臨時・偶発的に入ってきたお金にかかる所得。",
+   body:"生命保険の満期金や懸賞・くじの当選金など、一時的に得た所得のことです。特別控除(50万円)があり、税負担が軽くなる仕組みになっています。",
+   example:"保険の満期金や賞金などが該当。50万円までの控除があり、意外と税金は軽めです。"},
+  {cat:"tax",term:"一般口座",reading:"いっぱんこうざ",short:"自分で損益を計算して申告する、証券口座の一種。",
+   body:"特定口座と違い、年間の損益計算や確定申告を自分で行う必要がある口座です。手間がかかるため、初心者は特定口座(源泉徴収あり)を選ぶのが無難です。",
+   example:"税金の計算を全部自分でやるタイプ。よほどの理由がなければ特定口座が便利です。"},
+  {cat:"tax",term:"総合課税・申告分離課税",reading:"そうごうかぜい・しんこくぶんりかぜい",short:"他の所得と合算するか、分けて課税するかの方式。",
+   body:"総合課税は給与など他の所得と合算して税率をかける方式、申告分離課税は他と分けて一定税率で課税する方式です。株の利益などは分離課税が選べます。",
+   example:"株の利益は給与と分けて約20%(分離課税)。ひとまず『計算の仕方が2通りある』でOKです。"},
+
+  // ========== お金の基礎・家計（追加） ==========
+  {cat:"life",term:"クラウドファンディング",reading:"くらうどふぁんでぃんぐ",short:"ネットで大勢から少しずつお金を集める仕組み。",
+   body:"商品やプロジェクトに共感した人から、インターネットで広く資金を集める方法です。お礼の品がもらえる型や、投資として利益を狙う型などがあります。",
+   example:"『この商品を作りたい』に大勢が少額ずつ支援。お礼に完成品が届くタイプが人気です。"},
+  {cat:"life",term:"リバースモーゲージ",reading:"りばーすもーげーじ",short:"自宅を担保にお金を借り、亡くなった後に家で返す仕組み。",
+   body:"持ち家を担保にお金を借りて、生きている間は住み続け、亡くなった後に家を売って返済する仕組みです。老後資金の選択肢の一つとして知られます。",
+   example:"家に住んだまま生活資金を借りられる、シニア向けの仕組み。返済は基本、亡くなった後です。"},
+];
+
+/* ====== 状態 ====== */
+const FAV_KEY = "moneywords_favs";
+let favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]"));
+let activeCat = "all";
+let query = "";
+
+const grid = document.getElementById("grid");
+const empty = document.getElementById("empty");
+const countEl = document.getElementById("count");
+
+function saveFavs(){ localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); }
+
+function filtered(){
+  return DATA.filter(d=>{
+    const catOk = activeCat==="all" ? true : activeCat==="fav" ? favs.has(d.term) : d.cat===activeCat;
+    const q = query.trim().toLowerCase();
+    const qOk = !q || (d.term+d.reading+d.short+d.body).toLowerCase().includes(q);
+    return catOk && qOk;
+  });
+}
+
+function render(){
+  const list = filtered();
+  grid.innerHTML = "";
+  countEl.innerHTML = `<b>${list.length}</b> 語${activeCat==="fav"?"（お気に入り）":""}`;
+  if(list.length===0){ empty.style.display="block"; return; }
+  empty.style.display="none";
+  for(const d of list){
+    const on = favs.has(d.term);
+    const card = document.createElement("button");
+    card.className="card"; card.dataset.cat=d.cat; card.type="button";
+    card.innerHTML = `
+      <button class="star ${on?'on':''}" data-term="${d.term}" aria-label="お気に入り">${on?'★':'☆'}</button>
+      <span class="tag">${CATS[d.cat]}</span>
+      <p class="term">${d.term}</p>
+      <p class="reading">${d.reading}</p>
+      <p class="peek">${d.short}</p>`;
+    card.addEventListener("click",(e)=>{
+      if(e.target.classList.contains("star")) return;
+      openSheet(d);
+    });
+    card.querySelector(".star").addEventListener("click",(e)=>{
+      e.stopPropagation(); toggleFav(d.term); render();
+    });
+    grid.appendChild(card);
+  }
+}
+
+function toggleFav(term){
+  if(favs.has(term)) favs.delete(term); else favs.add(term);
+  saveFavs();
+}
+
+/* ====== モーダル ====== */
+const overlay = document.getElementById("overlay");
+const sheet = document.getElementById("sheet");
+let current = null;
+
+function openSheet(d){
+  current = d;
+  sheet.dataset.cat = d.cat;
+  document.getElementById("m-tag").textContent = CATS[d.cat];
+  document.getElementById("m-term").textContent = d.term;
+  document.getElementById("m-reading").textContent = d.reading;
+  document.getElementById("m-short").textContent = d.short;
+  document.getElementById("m-body").textContent = d.body;
+  document.getElementById("m-example").textContent = d.example;
+  const ms = document.getElementById("m-star");
+  const on = favs.has(d.term);
+  ms.textContent = on?"★":"☆"; ms.classList.toggle("on", on);
+  overlay.classList.add("open");
+  document.body.style.overflow="hidden";
+  sheet.scrollTop = 0;
+}
+function closeSheet(){
+  overlay.classList.remove("open");
+  document.body.style.overflow="";
+}
+document.getElementById("close").addEventListener("click",closeSheet);
+overlay.addEventListener("click",(e)=>{ if(e.target===overlay) closeSheet(); });
+document.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeSheet(); });
+document.getElementById("m-star").addEventListener("click",()=>{
+  if(!current) return;
+  toggleFav(current.term);
+  const on = favs.has(current.term);
+  const ms = document.getElementById("m-star");
+  ms.textContent = on?"★":"☆"; ms.classList.toggle("on", on);
+  render();
+});
+
+/* ====== 検索・カテゴリ ====== */
+const q = document.getElementById("q");
+const clearBtn = document.getElementById("clear");
+q.addEventListener("input",()=>{
+  query = q.value;
+  clearBtn.classList.toggle("show", query.length>0);
+  render();
+});
+clearBtn.addEventListener("click",()=>{
+  q.value=""; query=""; clearBtn.classList.remove("show"); render(); q.focus();
+});
+document.getElementById("chips").addEventListener("click",(e)=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  activeCat = chip.dataset.cat;
+  render();
+});
+
+/* ====== ランダム ====== */
+document.getElementById("random").addEventListener("click",()=>{
+  const pool = filtered().length? filtered() : DATA;
+  openSheet(pool[Math.floor(Math.random()*pool.length)]);
+});
+
+render();
+</script>
+</body>
+</html>
